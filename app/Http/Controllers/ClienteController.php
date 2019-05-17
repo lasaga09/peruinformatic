@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Cliente;
 
 class ClienteController extends Controller
 {
@@ -13,7 +14,18 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('Clientes.index');
+           if(session('idusuario')){
+
+
+              $datos=Cliente::all();
+             
+           
+
+          return view('Clientes.index',compact('datos'));
+          
+          }
+          
+          return redirect()->route('index');
 
           }
 

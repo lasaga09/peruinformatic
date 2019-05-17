@@ -68,6 +68,13 @@ justify-self:center;
 	
 }
 
+#ver,#ocultar
+{
+	cursor: pointer;
+	
+
+}
+
 
 .user_card {
 height: 350px;

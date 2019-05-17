@@ -11,10 +11,15 @@ class PrincipalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-        return view('Principal.index');
+        if(session('idusuario')){
+       return view('Principal.index');
+
+        }
+     
+        return redirect()->route('index');
+       
     }
 
     /**

@@ -20,3 +20,6 @@ Route::resource('/','login\LoginController');
 Route::resource('User','Usuario\UsuarioContoller');
 Route::resource('Cliente','ClienteController');
 Route::resource('/Home','PrincipalController');
+
+/*ountsing*/
+Route::get('Out','auotController@Ount')->name('singout');

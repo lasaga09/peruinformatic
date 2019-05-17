@@ -1,0 +1,29 @@
+
+/* CSS for smaller view spaces */
+@media screen and (max-width: 768px) {
+
+    /* hide table headings */
+    .table-responsive table thead {
+        display: none;
+    }
+
+    /* treat rows like divs */
+    .table-responsive table tr {
+        display: block;
+        border-top: 2px solid lightgray; /* separate row data with thicker line */
+        margin-top: 5px;
+    }
+
+    /* treat columns like divs */
+    .table-responsive table td {
+        display: block;
+        text-align: right; /* text to right */
+    }
+
+    /* this part is ugly, but necessary to show label on left */
+    .table-responsive table td:before {
+        content: attr(data-label);
+        float: left; /* label to left */
+        font-weight: 700;
+    }
+}

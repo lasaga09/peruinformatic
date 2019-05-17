@@ -8,6 +8,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+{{-- databalecss --}}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+
+{{-- enlase de datatable personalizada responsive --}}
+<link rel="stylesheet" type="text/css" href="css/datatables.css">
+
+
+
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
@@ -144,7 +155,7 @@
             class="fa fa-th-large"></i></a>
       </li>
       <li class="nav-item">
-      <a href="" class="btn btn-danger text-white"> salir</a> 
+      <a href="Out" class="btn btn-danger text-white"> salir</a> 
         
       </li>
 
@@ -156,7 +167,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="img/iconosis.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 bg-white"
            style="opacity: .8">
       <span class="brand-text font-weight-light">PeruInfromatic</span>
     </a>
@@ -208,14 +219,37 @@
                   <p>Dashboard v3</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/Cliente" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Cliente</p>
-                </a>
-              </li>
+             
             </ul>
           </li>
+
+
+               <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa fa-users"></i>
+
+              <p>
+                Clietes
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/Cliente " class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Administrar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Historial</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+
           
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -307,12 +341,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+          <a href="/Home"> <i class="fa fa-home" aria-hidden="true"></i>Home</a>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+             
               <li class="breadcrumb-item active">@yield('subItem')</li>
+              <li class="breadcrumb-item active">@yield('subItem2')</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -324,9 +359,27 @@
     <section class="content">
       
       <div class="container-fluid"><!-- contenedor principal -->
+      <hr>
 
-       
-        @yield('contenido')
+
+       <div class="row">
+          
+          @yield('contenido-cabezera')
+        </div>
+
+        <div class="row">
+           <section class="col-lg-8 connectedSortable">
+          @yield('contenido')
+        </section>
+
+
+       <section class="col-lg-4 connectedSortable">
+          @yield('contenido-derecho')
+        </section>
+
+        </div>
+
+        
         
       </div><!-- /.container-fluid -->
 
@@ -389,7 +442,49 @@
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+{{-- datatablejs --}}
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#tableData').DataTable({
+     
+responsice:true,
+language: {
+        "decimal": "",
+        "emptyTable": "No hay información",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+        "infoPostFix": "",
+        "thousands": ",",
+        "lengthMenu": "Mostrar _MENU_ Entradas",
+        "loadingRecords": "Cargando...",
+        "processing": "Procesando...",
+        "search": "Buscar:",
+        "zeroRecords": "Sin resultados encontrados",
+        "paginate": {
+            "first": "Primero",
+            "last": "Ultimo",
+            "next": "Siguiente",
+            "previous": "Anterior"
+        },
+}
+
+
+    });
+} );
+</script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script type="text/javascript" src="js/validacionformaulario.js"></script>
 </body>
 </html>
