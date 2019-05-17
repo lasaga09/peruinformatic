@@ -1,0 +1,174 @@
+/* Coded with love by Mutiullah Samim */
+
+.logincontenedor{
+display: grid;
+height: 100vh;
+align-content: center;
+/*	background: #60a3bc !important;*/
+background-image: url('../img/wdos.png');
+background-repeat: no-repeat, repeat;
+background-size: cover;
+background-position: center;
+}
+.formulario{
+display: grid;
+grid-template-rows: repeat(4,1fr);
+grid-template-columns: 1fr;
+background:;
+height: 80%;
+width: 92%;
+margin: 40px 20px 40px 20px;
+display: grid;
+}
+.texto{
+justify-self:center;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+.btncss{
+width: 150px;
+background: #1E3E8B;
+justify-self:center;
+color: #fff;
+font-size: 18px;
+font-weight: 600;
+margin-top: 10px;
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+border-radius: 25px;
+}
+.bb{
+display: grid;
+
+
+
+}
+.recuperar{
+	display: grid;
+	
+	
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr;
+}
+.rcss{
+justify-self:center;
+}
+
+
+.usercss{
+	background: #CBD9E4 !important;
+	color: #1E3E8B !important;
+	border: 0 !important;
+	border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.usercsse{
+	background: #CBD9E4 !important;
+	color: #1E3E8B !important;
+	border: 0 !important;
+	
+}
+
+
+.user_card {
+height: 350px;
+width: 550px;
+
+
+background: #E9E9E9;
+
+position: relative;
+display: flex;
+justify-content:; ;
+flex-direction: column;
+padding: 10px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+-webkit-border-radius: 40px;
+-moz-border-radius: 40px;
+border-radius     : 40px;
+}
+.brand_logo_container {
+position: absolute;
+
+height: 130px;
+width: 130px;
+top: -75px;
+border-radius: 50%;
+background: #fff;
+padding: 10px;
+text-align: center;
+}
+.brand_logo {
+height: 100px;
+width: 100px;
+border-radius: 50%;
+border: 2px solid white;
+}
+
+
+
+
+/*media querys responsive*/
+ @media screen and (max-width: 550px) {
+.user_card {
+height: 350px;
+width: 350px;
+
+}
+.cssstatus{
+	font-size: 13px;
+}
+
+
+.logincontenedor{
+
+/*	background: #60a3bc !important;*/
+background-image: url('../img/wuno.png');
+
+}
+ }
+
+@media screen and (max-width: 320px) {
+.user_card {
+height: 350px;
+width: 250px;
+
+}
+
+.brand_logo_container {
+
+top: -40px;
+height: 90px;
+width: 90px;
+
+}
+.brand_logo {
+height: 60px;
+width: 60px;
+
+}
+
+.textoimg{
+	width: 150px;
+}
+.cssstatus{
+	font-size: 11px;
+}
+
+.recuperar{
+	display: grid;
+	
+	
+	
+}
+.rcss{
+justify-self:center;
+font-size: 13px;
+}
+.reccs{
+	justify-self:center;
+}
+
+
+ }

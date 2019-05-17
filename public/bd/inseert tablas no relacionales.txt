@@ -1,0 +1,75 @@
+﻿
+
+--
+
+INSERT INTO `categorias` (`idcategoria`, `nombre`, `descripcion`) VALUES
+(1, 'Cargadores', NULL),
+(2, 'Pantallas', NULL);
+
+--
+-- Volcado de datos para la tabla `colores`
+--
+
+INSERT INTO `colores` (`idcolores`, `nombre`) VALUES
+(1, 'AMARILLO'),
+(2, 'AZUL'),
+(3, 'VERDE'),
+(4, 'NARANJA'),
+(5, 'ROJO'),
+(6, 'PURPURA'),
+(7, 'ROSADO'),
+(8, 'VIOLETA'),
+(9, 'BLANCO'),
+(10, 'NEGRO'),
+(11, 'MARRON'),
+(12, 'GRIS'),
+(13, 'PLOMO'),
+(14, 'ORO'),
+(15, 'CELESTE'),
+(16, 'SIN ESPECIFICAR');
+
+
+--
+-- Volcado de datos para la tabla `marcas`
+--
+
+INSERT INTO `marcas` (`idmarcas`, `nombre`) VALUES
+(1, 'HUAWEI'),
+(2, 'LG'),
+(3, 'IPHONE'),
+(4, 'MOTOROLA'),
+(5, 'SONY'),
+(6, 'ZTE'),
+(7, 'NOKIA'),
+(8, 'SANSUMG'),
+(9, 'SIN ESPECIFICAR');
+
+-- --------------------------------------------------------
+
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`idrol`, `rol`, `descripcion`) VALUES
+(1, 'Admin', 'Usuario administrador general'),
+(2, 'Jefe(a) de tienda', 'Usuario(a) administrador de una tienda especifico'),
+(3, 'Tecnico', 'Usuario tecnico de una determina tienda'),
+(4, 'Empleado', 'Usuario empleado de una tienda determinada');
+
+-- --------------------------------------------------------
+
+
+--
+-- Volcado de datos para la tabla `sedes`
+--
+
+INSERT INTO `sedes` (`idsede`, `nombre`, `direccion`, `distrito`) VALUES
+(1, 'Sarita Colonia', 'Av. Prolongacion Huaylas 452', 'Chorrillos'),
+(2, 'Santa Rosa', 'Av. Guardia Civil 433', 'Choriillos'),
+(3, 'Penta Mall', 'Av. Los Proceres cuadra 10', 'Surco'),
+(4, 'Mega Plaza', 'Av. Alameda Sur con Av. San Marcos', 'Choriillos'),
+(5, 'La Victoria', 'Av. Palermo 499', 'La Victoria'),
+(6, 'General', 'Acceso a todas las sedes', '');;
+
+-- --------------------------------------------------------
