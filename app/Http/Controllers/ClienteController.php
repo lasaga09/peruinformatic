@@ -36,7 +36,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return 'respondido';
     }
 
     /**
@@ -47,7 +47,28 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+               
+           try {
+            $cliente = new Cliente();
+
+               
+               $cliente->nombre = $request->nombre;
+               $cliente->telefono = $request->telefono;
+               $cliente->email = $request->email;       
+               $cliente->save();
+               return 'Cliente agregado correctamente!!!';
+               
+           } catch (Exception $e) {
+              
+              return 'error'.$e;
+              
+           }
+
+
+
+    
+
     }
 
     /**
@@ -58,7 +79,12 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        
+         $users = Cliente::where('idcliente', $id)->get();
+
+
+
+        return $users;
     }
 
     /**
@@ -81,7 +107,16 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+                 /*buscamos el cliente con el usuario*/
+                 $datos=Cliente::where('idcliente',$id)->FirstOrFail();
+               
+                
+               $datos->nombre = $request->nombre;
+               $datos->telefono = $request->telefono;
+               $datos->email = $request->email;       
+               $datos->save();
+
+               return 'slslfjlds';
     }
 
     /**

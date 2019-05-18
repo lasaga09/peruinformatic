@@ -17,8 +17,9 @@
 {{-- enlase de datatable personalizada responsive --}}
 <link rel="stylesheet" type="text/css" href="css/datatables.css">
 
+{{-- toastr --}}
 
-
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
@@ -447,7 +448,9 @@
 <script type="text/javascript" src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 
+{{-- toastr --}}
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
 
@@ -486,5 +489,6 @@ language: {
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <script type="text/javascript" src="js/validacionformaulario.js"></script>
+@yield('scripts')
 </body>
 </html>

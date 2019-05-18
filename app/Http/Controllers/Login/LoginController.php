@@ -95,7 +95,7 @@ class LoginController extends Controller
                           session(['idsede' =>$value->id_sede]);
                           session(['sede' =>$nameSede]);
                                                 
-                          return view('Principal.index');
+                        return redirect()->route('Home.index');
                           
                           
                           break;
@@ -121,7 +121,7 @@ class LoginController extends Controller
                           session(['idsede' =>$value->id_sede]);
                           session(['sede' =>$nameSede]);
                                                 
-                          return view('Principal.index');
+                      return redirect()->route('Home.index');
                           
                           break;
                           
@@ -145,7 +145,7 @@ class LoginController extends Controller
                           session(['idsede' =>$value->id_sede]);
                           session(['sede' =>$nameSede]);
                                                 
-                          return view('Principal.index');
+                      return redirect()->route('Home.index');
 
 
                           
@@ -170,7 +170,7 @@ class LoginController extends Controller
                           session(['idsede' =>$value->id_sede]);
                           session(['sede' =>$nameSede]);
                                                 
-                          return view('Principal.index');
+                     return redirect()->route('Home.index');
                           
                           break;
                           case '5':
@@ -193,7 +193,7 @@ class LoginController extends Controller
                           session(['idsede' =>$value->id_sede]);
                           session(['sede' =>$nameSede]);
                                                 
-                          return view('Principal.index');
+                         return redirect()->route('Home.index');
                           
                           break;
                           case '6':
@@ -217,7 +217,7 @@ class LoginController extends Controller
                           session(['idsede' =>$value->id_sede]);
                           session(['sede' =>$nameSede]);
                                                 
-                          return view('Principal.index');
+                          return redirect()->route('Home.index');
                           
                           break;
                           

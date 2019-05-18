@@ -14,7 +14,7 @@ class UsuarioContoller extends Controller
      */
     public function index()
     {
-        //
+        /**/
     }
 
     /**
