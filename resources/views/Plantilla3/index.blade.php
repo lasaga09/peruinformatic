@@ -273,6 +273,7 @@
                   <p>Proveedores</p>
                 </a>
               </li>
+  
 
 
               @endif
@@ -285,7 +286,7 @@
 @if (session('permisos')->pproductos == 0)
 
               <li class="nav-item">
-                <a href="#" style="pointer-events:none;
+                <a href="Producto" style="pointer-events:none;
               cursor: pointer;" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Productos</p>
@@ -295,7 +296,7 @@
               @else
 
                <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="Producto" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Productos</p>
                 </a>
@@ -489,7 +490,7 @@
       
       <div class="container-fluid"><!-- contenedor principal -->
       <hr>
-
+  @yield('contenido-header')
 
        <div class="row">
           
@@ -508,7 +509,10 @@
 
         </div>
 
+   
+          
         
+       
         
       </div><!-- /.container-fluid -->
 

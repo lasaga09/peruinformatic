@@ -83,6 +83,7 @@ class LoginController extends Controller
 
                                 $permisosget=Permiso::where('id_usuario',$value->idusuario)->get();
                                 $permisos=$permisosget[0];
+                           
 
                              
                                  

@@ -23,6 +23,7 @@ Route::resource('Home','PrincipalController');
 Route::resource('Categoria','CategoriaController');
 Route::resource('Proveedor','ProveedorController');
 Route::resource('Rol','RolController');
+Route::resource('Producto','ProductoController');
 
 
 Route::put('Permiso/{id}','PermisoController@update')->name('Permiso.update');
