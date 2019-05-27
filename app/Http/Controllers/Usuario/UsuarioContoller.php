@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Usuario;
 
 use Illuminate\Http\Request;
+use App\Usuario;
+use App\Rol;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 
 class UsuarioContoller extends Controller
@@ -14,7 +19,23 @@ class UsuarioContoller extends Controller
      */
     public function index()
     {
-        /**/
+
+                     if(session('idusuario')){
+                    /* $datos = Usuario::all();  */
+
+                          $datos = Usuario::select('usuarios.idusuario','usuarios.nombre','usuarios.usuario','roles.rol','sedes.nombre as sede')
+                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
+                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
+                          ->get();
+
+                          $rol=Rol::all();
+                         $sede = DB::table('sedes')->get();
+                          
+
+                          return view('Usuario.index',compact('datos','rol','sede')); 
+                          }      
+                          return redirect()->route('Login.index');
+                   
     }
 
     /**
@@ -35,7 +56,15 @@ class UsuarioContoller extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $usuario = new Usuario();
+       $usuario->nombre=$request->nombre;
+       $usuario->usuario=$request->usuario;
+       $usuario->password=encrypt($request->password);
+       $usuario->id_rol=$request->idrol;
+       $usuario->id_sede=$request->idsede;
+       $usuario->save();
+
+      return 'Usuario Registrado!!!';
     }
 
     /**
@@ -45,8 +74,10 @@ class UsuarioContoller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {    
+
+        $datos =Usuario::find($id);
+        return $datos;
     }
 
     /**
@@ -69,7 +100,30 @@ class UsuarioContoller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        /*validamos la contraseña vacia para no encriptar*/
+
+        if($request->password == ''){
+         $datos = Usuario::find($id);
+         $datos->nombre=$request->nombre;
+         $datos->usuario=$request->usuario;    
+         $datos->id_rol=$request->idrol;
+         $datos->id_sede=$request->idsede;
+         $datos->save();
+         return 'Actualizado correctamente';
+
+        }else{
+            /*encriptamos la contraseña modificada*/
+        $datos = Usuario::find($id);
+         $datos->nombre=$request->nombre;
+         $datos->usuario=$request->usuario;
+         $datos->password=encrypt($request->password);
+         $datos->id_rol=$request->idrol;
+         $datos->id_sede=$request->idsede;
+         $datos->save();
+         return 'Actualizado correctamente';
+        }
+    
     }
 
     /**
@@ -80,6 +134,8 @@ class UsuarioContoller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $datos = Usuario::find($id);
+        $datos->delete();
+        return 'Eliminado correctamente!!!';
     }
 }

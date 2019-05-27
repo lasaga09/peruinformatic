@@ -14,18 +14,18 @@ class ClienteController extends Controller
      */
     public function index()
     {
-           if(session('idusuario')){
-
-
+              if(session('idusuario')){
+              
+              
               $datos=Cliente::all();
-             
-           
-
-          return view('Clientes.index',compact('datos'));
-          
-          }
-          
-          return redirect()->route('index');
+              
+              
+              
+              return view('Clientes.index',compact('datos'));
+              
+              }
+              
+              return redirect()->route('Login.index');
 
           }
 
@@ -54,6 +54,8 @@ class ClienteController extends Controller
 
                
                $cliente->nombre = $request->nombre;
+               $cliente->apellido = $request->apellido;
+               $cliente->dni = $request->dni;
                $cliente->telefono = $request->telefono;
                $cliente->email = $request->email;       
                $cliente->save();
@@ -105,18 +107,20 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
                  /*buscamos el cliente con el usuario*/
-                 $datos=Cliente::where('idcliente',$id)->FirstOrFail();
-               
+              $datos = Cliente::find($id);
+             
                 
                $datos->nombre = $request->nombre;
+               $datos->apellido = $request->apellido;
+               $datos->dni = $request->dni;
                $datos->telefono = $request->telefono;
                $datos->email = $request->email;       
                $datos->save();
 
-               return 'slslfjlds';
+               return 'Cliente Actualizado!!!';
     }
 
     /**
@@ -127,6 +131,8 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $datos =Cliente::find($id);
+      $datos->delete();
+        return 'Cliente Eliminado!!!';
     }
 }

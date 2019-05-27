@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Login;
 
 use Illuminate\Http\Request;
 use App\Usuario;
+use App\Permiso;
 use App\CustomCollection;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 
 class LoginController extends Controller
 {
@@ -19,6 +23,7 @@ class LoginController extends Controller
      */
     public function index()
     {
+         Cache::flush();
     return view('login.login');
     }
 
@@ -40,17 +45,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-              /*validacion de los inputs*/
-             /* $request->validate([
-              'user' => 'required',
-              'pass' => 'required' 
-              ],[
-                'user.required'=>'Ingrese un usuario',
-                'pass.required'=>'Ingresar contraseña'
-
-              ]);*/
-        
+    {     
         $user = $request->user;
         $pass = $request->pass;
        /*$userBd=Usuario::all();*/
@@ -60,186 +55,60 @@ class LoginController extends Controller
             
                 /*redireccion cuado usuario y cotraseña son incorrecta*/
 
-             return redirect()->route('index')->with('status', 'Usuario y contraseña incorrecta!!!');
+             return redirect()->route('Login.index')->with('status', 'Usuario y contraseña incorrecta!!!');
                 }else{
                           
                           foreach ($users as  $value) {
                           
                           $u=$value->usuario;
                           $p= $value->password;
+                          $pdes= decrypt($p);
                           
                           
-                          /*validacion de usuario x sede*/
-                          if($u== $user &&  $p== $pass){
-                          
-                          
-                          
-                          switch ($value->id_sede) {
-                          case '1':
-                           $rol = Usuario::select('roles.rol')
-                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
-                          ->where('id_rol',$value->id_rol)
-                          ->get();
-                           $nameRol=$rol[0]->rol;
+                          /*validacion usuario y pass*/
+                          if($u== $user &&  $pdes== $pass){
 
-                         
-                          $sede = Usuario::select('sedes.nombre')
-                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
-                          ->where('id_sede',$value->id_sede)
-                          ->get();
-                           $nameSede=$sede[0]->nombre;
-                          session(['idusuario' =>$value->idusuario]);
-                          session(['usuario' =>$value->usuario]);
-                          session(['idrol' =>$value->id_rol]);
-                          session(['rol' =>$nameRol]);
-                          session(['idsede' =>$value->id_sede]);
-                          session(['sede' =>$nameSede]);
-                                                
-                        return redirect()->route('Home.index');
-                          
-                          
-                          break;
-                          case '2':
+                                $rol = Usuario::select('roles.rol')
+                                ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
+                                ->where('id_rol',$value->id_rol)
+                                ->get();
+                                 $nameRol=$rol[0]->rol;
+                                 
+                                 $sede = Usuario::select('sedes.nombre')
+                                ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
+                                ->where('id_sede',$value->id_sede)
+                                ->get();
+                                $nameSede=$sede[0]->nombre;
+                               
 
-                          $rol = Usuario::select('roles.rol')
-                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
-                          ->where('id_rol',$value->id_rol)
-                          ->get();
-                           $nameRol=$rol[0]->rol;
+                                $permisosget=Permiso::where('id_usuario',$value->idusuario)->get();
+                                $permisos=$permisosget[0];
 
-                         
-                          $sede = Usuario::select('sedes.nombre')
-                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
-                          ->where('id_sede',$value->id_sede)
-                          ->get();
-                           $nameSede=$sede[0]->nombre;
-                        
-                          session(['idusuario' =>$value->idusuario]);
-                          session(['usuario' =>$value->usuario]);
-                          session(['idrol' =>$value->id_rol]);
-                          session(['rol' =>$nameRol]);
-                          session(['idsede' =>$value->id_sede]);
-                          session(['sede' =>$nameSede]);
-                                                
-                      return redirect()->route('Home.index');
-                          
-                          break;
-                          
-                          case '3':
-                          $rol = Usuario::select('roles.rol')
-                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
-                          ->where('id_rol',$value->id_rol)
-                          ->get();
-                           $nameRol=$rol[0]->rol;
-
-                         
-                          $sede = Usuario::select('sedes.nombre')
-                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
-                          ->where('id_sede',$value->id_sede)
-                          ->get();
-                           $nameSede=$sede[0]->nombre;
-                       session(['idusuario' =>$value->idusuario]);
-                          session(['usuario' =>$value->usuario]);
-                          session(['idrol' =>$value->id_rol]);
-                          session(['rol' =>$nameRol]);
-                          session(['idsede' =>$value->id_sede]);
-                          session(['sede' =>$nameSede]);
-                                                
-                      return redirect()->route('Home.index');
+                             
+                                 
+                                 session(['idusuario' =>$value->idusuario]);
+                                session(['usuario' =>$value->nombre]);
+                                session(['idrol' =>$value->id_rol]);
+                                session(['rol' =>$nameRol]);
+                                session(['idsede' =>$value->id_sede]);
+                                session(['sede' =>$nameSede]);
+                                session(['permisos' =>$permisos]);/*mandamos todos los campos de los permisos*/
 
 
-                          
-                          break;
-                          case '4':
-                          $rol = Usuario::select('roles.rol')
-                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
-                          ->where('id_rol',$value->id_rol)
-                          ->get();
-                           $nameRol=$rol[0]->rol;
-
-                         
-                          $sede = Usuario::select('sedes.nombre')
-                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
-                          ->where('id_sede',$value->id_sede)
-                          ->get();
-                           $nameSede=$sede[0]->nombre;
-                        session(['idusuario' =>$value->idusuario]);
-                          session(['usuario' =>$value->usuario]);
-                          session(['idrol' =>$value->id_rol]);
-                          session(['rol' =>$nameRol]);
-                          session(['idsede' =>$value->id_sede]);
-                          session(['sede' =>$nameSede]);
-                                                
-                     return redirect()->route('Home.index');
-                          
-                          break;
-                          case '5':
-                          $rol = Usuario::select('roles.rol')
-                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
-                          ->where('id_rol',$value->id_rol)
-                          ->get();
-                           $nameRol=$rol[0]->rol;
-
-                         
-                          $sede = Usuario::select('sedes.nombre')
-                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
-                          ->where('id_sede',$value->id_sede)
-                          ->get();
-                           $nameSede=$sede[0]->nombre;
-                        session(['idusuario' =>$value->idusuario]);
-                          session(['usuario' =>$value->usuario]);
-                          session(['idrol' =>$value->id_rol]);
-                          session(['rol' =>$nameRol]);
-                          session(['idsede' =>$value->id_sede]);
-                          session(['sede' =>$nameSede]);
-                                                
-                         return redirect()->route('Home.index');
-                          
-                          break;
-                          case '6':
-                         $rol = Usuario::select('roles.rol')
-                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
-                          ->where('id_rol',$value->id_rol)
-                          ->get();
-                           $nameRol=$rol[0]->rol;
-
-                         
-                          $sede = Usuario::select('sedes.nombre')
-                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
-                          ->where('id_sede',$value->id_sede)
-                          ->get();
-                           $nameSede=$sede[0]->nombre;
-                          $nameSede=$sede[0]->nombre;
-                        session(['idusuario' =>$value->idusuario]);
-                          session(['usuario' =>$value->usuario]);
-                          session(['idrol' =>$value->id_rol]);
-                          session(['rol' =>$nameRol]);
-                          session(['idsede' =>$value->id_sede]);
-                          session(['sede' =>$nameSede]);
-                                                
-                          return redirect()->route('Home.index');
-                          
-                          break;
-                          
-                          
-                          
-                          default:
-                          
-                          break;
-                          }
+                                
+                                return redirect()->route('Home.index');
+                              
+                              
                           
                           
                           }else{
-                         return redirect()->route('index')->with('status', 'Contraseña Incorrecta!!!');
+                         return redirect()->route('Login.index')->with('status', 'Contraseña Incorrecta!!!');
                           }
                           
                           
-                          }
+             }
                           
-                          }
-
- 
-
+        }
        
     }
 
@@ -248,7 +117,7 @@ class LoginController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     
     public function show($id)
     {
         //

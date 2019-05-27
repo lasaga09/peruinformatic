@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class auotController extends Controller
 {
@@ -13,9 +14,10 @@ class auotController extends Controller
 
        /*Elimanos las sessiones*/
         session()->flush();
+        Cache::flush();
     	
 
     
-    	return redirect()->route('index');
+    	return redirect()->route('Login.index');
     }
 }

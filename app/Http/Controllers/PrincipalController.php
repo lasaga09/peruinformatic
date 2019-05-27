@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Cliente;
+use App\Usuario;
+use App\Proveedor;
+use App\Permiso;
 use Illuminate\Http\Request;
+
 
 class PrincipalController extends Controller
 {
@@ -14,11 +20,22 @@ class PrincipalController extends Controller
     public function index(Request $request)
     {
         if(session('idusuario')){
-       return view('Principal.index');
+
+
+           $usuario=Usuario::all();
+           $tusuario=$usuario->count();
+           $cliente=Cliente::all();
+           $tcliente=$cliente->count();
+          $proveedor=Proveedor::all();
+           $tproveedor=$proveedor->count();
+
+
+
+          return view('Principal.index',compact('tusuario','tcliente','tproveedor'));
 
         }
      
-        return redirect()->route('index');
+        return redirect()->route('Login.index');
        
     }
 

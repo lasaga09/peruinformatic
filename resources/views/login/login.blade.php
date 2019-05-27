@@ -19,7 +19,7 @@
         </div>
 
 {{-- empiesa formulario --}}
- <form action="/" method="POST" class="needs-validation" novalidate>
+ <form action="Login" method="POST" class="needs-validation" novalidate>
         @csrf
         <div class="inputs">
           
@@ -45,18 +45,15 @@
         </div>
           <div class="form-group bb">
           <button type="submit" class="btncss">Ingresar</button>
+          <div class="mt-2">@include('login.mensaje')</div>
           </div>
-          
-          
-          @include('login.mensaje')
-
-
-       @if (!session('status'))
-          <div class="recuperar">
+         
+          <div class="recuperar text-center" id="recuperar">
         <div class="rcss"><span >¿Olvidaste tu contraseña?</span> <a href="#" class="reccs">Recuperar</a></div>
          </div>
 
-       @endif
+
+
 
 
         </div>

@@ -32,10 +32,24 @@ var pass=document.getElementById("pass");
 
 
 var statusClose=document.getElementById("cerrarMensaje");
-statusClose.addEventListener("click", e=>{
-   e.preventDefault();
-  location.reload();
+/*statusClose.addEventListener("click", e=>{
+ e.preventDefault();
+  document.getElementById("recuperar").style.display='block';
+ 
+ 
 
  
-})
+});*/
+
+
+   var divstatus =document.getElementById("divstatus");
+   if(divstatus.style.display == 'none'){
+   }else{
+   document.getElementById("recuperar").style.display='none';
+   statusClose.addEventListener("click",function(e){
+   document.getElementById("recuperar").style.display='block';    
+   });     
+   }
+   
+   
 

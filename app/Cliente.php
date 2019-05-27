@@ -9,5 +9,5 @@ class Cliente extends Model
     protected $table='clientes';
       public $timestamps = false;
 
-     
+     protected $primaryKey = 'idcliente';
 }

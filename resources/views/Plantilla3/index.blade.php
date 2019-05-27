@@ -1,8 +1,13 @@
-<!DOCTYPE html>
+{{--  --}}<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  
   <title>PeruInfromatic | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,6 +33,11 @@
   <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
   <!-- Morris chart -->
 
+  <!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css"/>
+
+{{-- jquery validacion --}}
+<link rel="stylesheet" type="text/css" href="jqueryValidacion/jquery.maxlength.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
   <!-- Date Picker -->
@@ -38,6 +48,7 @@
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  @yield('style')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -202,77 +213,194 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+
+          @if (session('permisos')->pcategoria == 0)
+            
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="Categoria" style="pointer-events:none;
+                    cursor: pointer;" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Dashboard v1</p>
+                  <p>Categorias</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
+
+            @else
+             <li class="nav-item">
+                <a href="Categoria" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Dashboard v2</p>
+                  <p>Categorias</p>
                 </a>
               </li>
+          @endif
+
+
+@if (session('permisos')->pcliente == 0)
+
+
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="Cliente" style="pointer-events:none;
+              cursor: pointer;" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Dashboard v3</p>
+                  <p>Clientes</p>
                 </a>
               </li>
+@else
+  <li class="nav-item">
+                <a href="Cliente" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Clientes</p>
+                </a>
+              </li>
+@endif
+
+
+@if (session('permisos')->pproveedores == 0)
+
+              <li class="nav-item">
+                <a href="Proveedor" style="pointer-events:none;
+              cursor: pointer;" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Proveedores</p>
+                </a>
+              </li>
+
+
+
+              @else
+       <li class="nav-item">
+                <a href="Proveedor" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Proveedores</p>
+                </a>
+              </li>
+
+
+              @endif
+
+
+
+
+
+
+@if (session('permisos')->pproductos == 0)
+
+              <li class="nav-item">
+                <a href="#" style="pointer-events:none;
+              cursor: pointer;" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Productos</p>
+                </a>
+              </li>
+
+              @else
+
+               <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Productos</p>
+                </a>
+              </li>
+
+
+
+              @endif
              
             </ul>
           </li>
 
 
-               <li class="nav-item has-treeview">
+         
+
+      {{-- rol solo del admi general y jefa de tienda --}}
+          
+       @if (session('idrol') == 1 or session('idrol') == 2 )
+            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-users"></i>
 
               <p>
-                Clietes
+                Gestionar Usuarios
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/Cliente " class="nav-link">
+    
+         <li class="nav-item">
+                <a href="Usuario" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Administrar</p>
+                  <p>Usuarios</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
+       
+             <li class="nav-item">
+                <a href="#" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Historial</p>
+                  <p>Dar permisos</p>
                 </a>
               </li>
              
             </ul>
           </li>
 
+  @endif
+
+            
           
+                
+                
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fa fa-pie-chart"></i>
               <p>
-                Charts
+                Compras/Ventas
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+
+
+
+                @if (session('permisos')->pcompra == 0)
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="" style="pointer-events:none;
+              cursor: pointer;" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>ChartJS</p>
+                  <p>Compras</p>
                 </a>
               </li>
-              <li class="nav-item">
+              @else
+               <li class="nav-item">
                 <a href="" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Flot</p>
+                  <p>Compras</p>
                 </a>
               </li>
+
+              @endif
+
+
+@if (session('permisos')->pventa == 0)
+              <li class="nav-item">
+                <a href="" style="pointer-events:none;
+              cursor: pointer;" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Ventas</p>
+                </a>
+              </li>
+@else
+<li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Ventas</p>
+                </a>
+              </li>
+
+
+@endif
+
+
+
               <li class="nav-item">
                 <a href="" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
@@ -342,13 +470,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <a href="/Home"> <i class="fa fa-home" aria-hidden="true"></i>Home</a>
+          <a href="Home"> <i class="fa fa-home" aria-hidden="true"></i>Home</a>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
              
               <li class="breadcrumb-item active">@yield('subItem')</li>
-              <li class="breadcrumb-item active">@yield('subItem2')</li>
+              
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -369,7 +497,7 @@
         </div>
 
         <div class="row">
-           <section class="col-lg-8 connectedSortable">
+           <section class="col-lg-8 connectedSortable" id="seccionRecargar">
           @yield('contenido')
         </section>
 
@@ -452,7 +580,12 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
 
+{{-- jquery validacion --}}
+<script type="text/javascript" src="jqueryValidacion/jquery.plugin.js"></script>
+<script type="text/javascript" src="jqueryValidacion/jquery.maxlength.js"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
@@ -460,27 +593,27 @@
   $(document).ready( function () {
     $('#tableData').DataTable({
      
-responsice:true,
-language: {
-        "decimal": "",
-        "emptyTable": "No hay información",
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-        "infoPostFix": "",
-        "thousands": ",",
-        "lengthMenu": "Mostrar _MENU_ Entradas",
-        "loadingRecords": "Cargando...",
-        "processing": "Procesando...",
-        "search": "Buscar:",
-        "zeroRecords": "Sin resultados encontrados",
-        "paginate": {
+            responsice:true,
+            language: {
+            "decimal": "",
+            "emptyTable": "No hay información",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "search": "Buscar:",
+            "zeroRecords": "Sin resultados encontrados",
+            "paginate": {
             "first": "Primero",
             "last": "Ultimo",
             "next": "Siguiente",
             "previous": "Anterior"
-        },
-}
+            },
+            }
 
 
     });
@@ -489,6 +622,7 @@ language: {
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <script type="text/javascript" src="js/validacionformaulario.js"></script>
+
 @yield('scripts')
 </body>
 </html>
