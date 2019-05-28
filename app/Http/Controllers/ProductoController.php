@@ -7,6 +7,7 @@ use App\Producto;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class ProductoController extends Controller
 {
@@ -77,31 +78,27 @@ class ProductoController extends Controller
             $name=time().$file->getClientOriginalName();
             $file->move(public_path().'/imagenes/',$name);
 
+        }else{
 
-
-
-
-             $producto = new Producto();
-        $producto->nombre=$request->producto;
-        $producto->id_marca=$request->marca;
-        $producto->modelo=$request->modelo;
-        $producto->id_color=$request->color;
-        $producto->stock=$request->stock;
-        $producto->pantalla_generica=$request->generica;
-        $producto->pantalla_original=$request->original;
-        $producto->precio_compra=$request->compra;
-        $producto->precio_venta=$request->venta;
-        $producto->imagen=$name;
-        $producto->id_categoria=$request->categoria;
-        $producto->id_sede=$request->idsede;
-        $producto->save();
-
-        return 'Agregado correctamente!!!';
-        }
-       
+           $name='';
+         }
+            $producto = new Producto();
+             $producto->nombre=$request->producto;
+             $producto->id_marca=$request->marca;
+             $producto->modelo=$request->modelo;
+             $producto->id_color=$request->color;
+             $producto->stock=$request->stock;
+             $producto->pantalla_generica=$request->generica;
+             $producto->pantalla_original=$request->original;
+             $producto->precio_compra=$request->compra;
+             $producto->precio_venta=$request->venta;
+             $producto->imagen=$name;
+             $producto->id_categoria=$request->categoria;
+             $producto->id_sede=$request->idsede;
+             $producto->save();
 
     
-
+         return 'Producto agregado';
 
     }
 
@@ -111,9 +108,12 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show(Producto $producto,$id)
     {
-        //
+         $datos = $producto::find($id);
+
+
+        return $datos;
     }
 
     /**
@@ -122,9 +122,9 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit(Request $request,Producto $producto)
     {
-        //
+       
     }
 
     /**
@@ -134,9 +134,16 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, Producto $producto,$id)
     {
-        //
+    if($request->hasFile('imagen')){
+     return 'si';
+    }
+    return 'no';
+    
+
+
+
     }
 
     /**
@@ -145,8 +152,12 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto)
+    public function destroy(Producto $producto,$id)
     {
-        //
+        $datos = $producto::find($id);
+         $file_path = public_path().'/imagenes/'.$datos->imagen;
+        \File::delete($file_path);
+        $datos->delete();
+        return 'Producto eliminado';
     }
 }

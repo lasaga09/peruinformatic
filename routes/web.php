@@ -25,6 +25,9 @@ Route::resource('Proveedor','ProveedorController');
 Route::resource('Rol','RolController');
 Route::resource('Producto','ProductoController');
 
+/*para actualizar con imagen*/
+Route::post('ProductoUp/{id}','ImagenController@up')->name('Producto.up');
+
 
 Route::put('Permiso/{id}','PermisoController@update')->name('Permiso.update');
 Route::get('Permiso/{id}','PermisoController@show')->name('Permiso.show');

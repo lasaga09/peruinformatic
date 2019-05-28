@@ -14,11 +14,17 @@
 	{{session('sede')}}
 @endsection
 
+@section('style')
+<link rel="stylesheet" type="text/css" href="css/producto.css">
+
+@endsection
+
 @section('contenido-header')
 
 {{-- add --}}
 
-
+<div class="loader-page"></div>
+ 
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -152,18 +158,19 @@
 <br>
 			<div class="row align-items-center justify-content-center ">
 				
-				<div class="col-8 ">
+				<div class="col-6 ">
+					<label for="imagen" class="btn btn-info"><i class="fa fa-arrow-up" aria-hidden="true"> <span>Cargar Imagen</span></i></label>
 
-					<input type ="file" class="form-control-file" id="imagen" name="imagen">
+					<input hidden="" type ="file" class="form-control-file" id="imagen" name="imagen">
 					
 
 				</div>
 
 
-				<div class="col-4 ">
-					<div class="loadimagen d-flex justify-content-center"  style="width: 100%;height: 100px;border-collapse: collapse;border-image: unset;-webkit-box-shadow: 2px 2px 2px 2px #17D8FF;
-						box-shadow: 2px 2px 2px 2px #17D8FF;">
-						<img src="" id="imgshow" width="150">
+				<div class="col-6 ">
+					<div class="loadimagen d-flex justify-content-center"  style="width: 80%;height: 180px;border-collapse: collapse;-webkit-box-shadow:inset 0 0 0 2px #539636;
+                         box-shadow:inset 0 0 0 2px #539636;">
+						<img src="" id="imgshow" width="180">
 						
 					</div>
 				</div>
@@ -185,6 +192,11 @@
     </div>
   </div>
 </div>
+
+
+
+
+
 
 
 
@@ -251,6 +263,7 @@
        
      @if (session('idsede') !=6)
      	  <button data-toggle ="modal" class="btn btn-warning"  data-target="#edit" id="btnEdit" idcate='{{$value->idproducto}}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+       
        <button id          ="btnDelete" class="btn btn-danger" tokende="{{ csrf_token() }} "  idcateDel="{{$value->idproducto}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
      @endif
 
@@ -276,6 +289,176 @@
   </tbody>
 </table>
 </div>
+
+
+
+
+
+
+
+
+<!-- Modal edit -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalCenterTitle">edit</h5>
+        <button type="button" class="close" id="cerrarup" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+         <form  enctype="multipart/form-data" id="formularioUp" >
+         	<div class="modal-body">
+         	
+         
+         	<input type="text" name="" id="tokenup" hidden="" value="{{ csrf_token() }}">
+            <div class="form-group">
+            <label for="productoup">Nombre del Producto</label>
+            <input type="text" class="form-control" id="productoup" name="productoup" aria-describedby="emailHelp" placeholder="producto" required="">
+            <small id="categoriaValidacion" class="form-text text-muted"></small>
+            </div>
+
+            <div class="form-group">
+			<label for="modeloup">Modelo</label>
+			<input type="text" class="form-control" id="modeloup" name="modeloup" aria-describedby="emailHelp" placeholder="modelo" required="">
+			<small id="categoriaValidacion" class="form-text text-muted"></small>
+			</div>
+
+
+
+
+			<div class="row">
+				
+				
+				<div class="col-6">
+					<div class="form-group">
+						<label for="marcaup">Seleccione Marca</label><br>
+						<select name="marcaup" id="marcaup" style="width: 100%">
+							@foreach ($marca as $t)
+							<option value="{{$t->idmarcas}}">{{$t->nombre}}</option>
+							@endforeach
+							
+						</select>
+					</div>
+				</div>
+				
+				<div class="col-6">
+					<div class="form-group">
+						<label for="colorup">Seleccione Color</label><br>
+						<select name="colorup" id="colorup" style="width: 100%">
+							@foreach ($color as $t)
+							<option value="{{$t->idcolores}}">{{$t->nombre}}</option>
+							@endforeach
+							
+						</select>
+						
+					</div>
+				</div>
+			</div>
+				
+
+			<div class="row">
+				
+				<div class="col-6">
+					<label for="genericaricaup">P/Generica</label>
+					<input type="number" class="form-control" id="genericaup" name="genericaup" aria-describedby="emailHelp" placeholder="Generica" required="">
+					<small id="categoriaValidacion" class="form-text text-muted"></small>
+				</div>
+				<div class="col-6">
+					<label for="originalup">P/Original</label>
+					<input type="number" class="form-control" id="originalup" name="originalup" aria-describedby="emailHelp" placeholder="Original" required="">
+					<small id="categoriaValidacion" class="form-text text-muted"></small>
+				</div>
+				
+			</div>
+
+
+
+				<div class="row">
+					
+					<div class="col-6">
+						<label for="compraup">P/Compra</label>
+						<input type="number" class="form-control" id="compraup" name="compraup" aria-describedby="emailHelp" placeholder="precio de compra" required="">
+						<small id="categoriaValidacion" class="form-text text-muted"></small>
+					</div>
+					<div class="col-6">
+						<label for="ventaup">P/Venta</label>
+						<input type="number" class="form-control" id="ventaup" name="ventaup" aria-describedby="emailHelp" placeholder="Precio de venta" required="">
+						<small id="categoriaValidacion" class="form-text text-muted"></small>
+					</div>
+					
+				</div>
+				
+
+			<div class="row">
+				<div class="col-6">
+					
+					<label for="stockup">Stock</label>
+					<input type="number" class="form-control" id="stockup" name="stockup" aria-describedby="emailHelp" placeholder="stock del producto" required="">
+					
+				</div>
+				<div class="col-6">
+					
+					<label for="categoriaup">Seleccione Categoria</label><br>
+					<select name="categoriaup" id="categoriaup" style="width: 100%;height: 35px">
+						@foreach ($categoria as $t)
+						<option value="{{$t->idcategoria}}">{{$t->nombre}}</option>
+						@endforeach
+						
+					</select>
+					
+					
+				</div>
+			</div>
+
+
+			<input type="text" name="idsedeup" id="idsedeup" hidden="" value="{{session('idsede')}}" >
+			<input type="text" name="idproducto" id="idproducto" hidden="" >
+
+
+			<div class="row align-items-center justify-content-center ">
+				
+				<div class="col-6 ">
+					<label for="imagenup" class="btn btn-info"><i class="fa fa-arrow-up" aria-hidden="true"> <span>Cargar Imagen</span></i></label>
+
+					<input hidden="" type ="file" class="form-control-file" id="imagenup" name="imagenup">
+					
+
+				</div>
+
+
+				<div class="col-6 ">
+					<div class="loadimagen d-flex justify-content-center"  style="width: 80%;height: 180px;border-collapse: collapse;-webkit-box-shadow:inset 0 0 0 2px #539636;
+                         box-shadow:inset 0 0 0 2px #539636;">
+						<img src="" id="imgshowup" width="180">
+						
+					</div>
+				</div>
+			</div>
+				
+
+
+
+
+
+
+
+
+            <button type ="button" class="btn btn-success" id="btnUpdate"><i class="fa fa-floppy-o" aria-hidden="true"> Actualizar</i></button>
+            
+          </div>
+         </form>
+         </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
 
 
 
