@@ -62,7 +62,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -122,9 +122,17 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,Producto $producto)
+    public function edit(Request $request,Producto $producto,$id)
     {
        
+         $datos = Producto::select('productos.idproducto','productos.nombre as producto','marcas.nombre as marca','productos.modelo','colores.nombre as color','productos.descripcion','productos.stock','productos.pantalla_generica','productos.pantalla_original','productos.precio_compra','productos.precio_venta','productos.imagen','categorias.nombre as categoria','sedes.nombre as sede')
+                       ->join('marcas', 'marcas.idmarcas', '=', 'productos.id_marca')
+                       ->join('colores', 'colores.idcolores', '=', 'productos.id_color')
+                       ->join('categorias', 'categorias.idcategoria', '=', 'productos.id_categoria')
+                       ->join('sedes', 'sedes.idsede', '=', 'productos.id_sede')->where('idproducto',$id)->get();
+
+
+        return $datos[0];
     }
 
     /**

@@ -160,7 +160,7 @@ $(document).on("click","#btnDelete",function(){
 					type: 'DELETE',
 					data: {},
 					success:function(rs){	
-						
+
 					alertify.success(rs);
 
 					location.reload();
@@ -176,6 +176,46 @@ $(document).on("click","#btnDelete",function(){
 
 
 
+
+
+
+/*detalls*/
+
+var btnDetails = document.getElementById("btnDetails");
+$(document).on("click","#btnDetails",function(e){
+	var id =this.getAttribute("idcateDetalle");
+
+
+     $.ajax({
+     	url: 'Producto/'+id+'/edit',
+     	type: 'GET',
+     	success:function(rs){
+     	
+
+     document.getElementById("imgdeta").src='imagenes/'+rs['imagen']
+     document.getElementById("nombredeta").textContent = rs['producto'];
+     document.getElementById("modelodeta").textContent = rs['modelo'];	
+      document.getElementById("colordeta").textContent = rs['color'];
+       document.getElementById("categoriadeta").textContent = rs['categoria'];
+        document.getElementById("originaldeta").textContent = rs['pantalla_original'];
+         document.getElementById("genericadeta").textContent = rs['pantalla_generica'];
+          document.getElementById("compradeta").textContent = rs['precio_compra'];
+           document.getElementById("ventadeta").textContent = rs['precio_venta'];
+            document.getElementById("stockdeta").textContent = rs['stock'];
+             document.getElementById("marcadeta").textContent = rs['marca'];
+             document.getElementById("sededetat").textContent = rs['sede'];
+           
+
+
+
+      }
+
+     });
+  
+     
+
+
+});
 
 
 

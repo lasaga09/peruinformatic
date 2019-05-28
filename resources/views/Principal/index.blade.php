@@ -123,7 +123,7 @@
               <div class="icon">
                 <i class="fa fa-product-hunt" aria-hidden="true"></i>
               </div>
-              <a href="#" style="pointer-events:none;
+              <a href="Producto" style="pointer-events:none;
               cursor: pointer;" class="small-box-footer">ir a productos <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
@@ -137,7 +137,7 @@
                 <div class="icon">
                   <i class="fa fa-product-hunt" aria-hidden="true"></i>
                 </div>
-                <a href="#" class="small-box-footer">ir a productos <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="Producto" class="small-box-footer">ir a productos <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
 

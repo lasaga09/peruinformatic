@@ -27,10 +27,96 @@
  
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+@if (session('idsede') != 6)
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus-circle" aria-hidden="true"></i>
   Nuevo
 </button>
+
+
+@endif
 <br><br>
+
+
+
+
+{{-- modal detalles --}}
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalDeta" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title d-flex justify-content-center" id="exampleModalCenterTitle">Detalles</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+				
+				<div width="100%">
+				
+				<div class="card mb-3" style="max-width: 100%;height: auto">
+				<div class="row no-gutters">
+				<div class="col-md-6">
+				<img src="" class="card-img" alt="" id="imgdeta" height="400px">
+				</div>
+				
+				
+				<div class="col-md-6">
+				
+		
+		
+		<div class="card" style="width: 100%;">
+		<div class="card-header text-center" id="nombredeta">
+		
+		</div>
+		
+		<li class="list-group-item"><b>Marca: </b> <span id="marcadeta"></span></li>
+		<li class="list-group-item"><b>Modelo: </b> <span id="modelodeta"></span></li>
+	<li class="list-group-item"><b>Color: </b> <span id="colordeta"></span></li>
+	<li class="list-group-item"><b>Categoria: </b> <span id="categoriadeta"></span></li>
+	   <li class="list-group-item">
+	   	<b>P/Generica: </b> <span id="genericadeta"></span> 
+	   	<b style="margin-left: 20%">P/Original: </b> <span id="originaldeta"></span>
+
+	   </li>
+		
+		<li class="list-group-item">
+			<b>P/Compra: </b> <span id="compradeta"></span> 
+			<b style="margin-left: 20%">P/Venta: </b> <span id="ventadeta"></span>
+		</li>
+		
+		<li class="list-group-item"><b>Stock: </b> <span id="stockdeta"></span></li>
+		</div>
+
+			
+				
+				
+				</div>
+				
+				</div>
+				</div>
+				</div>
+
+				@if (session('idsede')==6)
+					<div class="row text-centerv d-flex justify-content-center">
+					<span id="sededetat"></span>
+				</div>
+				@else
+				<span id="sededetat" hidden=""></span>
+				@endif
+        
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
 
 
@@ -268,7 +354,7 @@
      @endif
 
 			
-			<button id  ="btnDetails" class="btn btn-info" tokenDet="{{ csrf_token() }} "  idcateDel="{{$value->idproducto}}"><i class="fa fa-eye" aria-hidden="true"></i></button>
+			<button id  ="btnDetails" class="btn btn-info" data-toggle="modal" data-target="#modalDeta" tokenDet="{{ csrf_token() }} "  idcateDetalle="{{$value->idproducto}}"><i class="fa fa-eye" aria-hidden="true"></i></button>
 
 
 
