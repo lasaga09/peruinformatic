@@ -204,6 +204,10 @@ $(document).on("click","#btnDetails",function(e){
             document.getElementById("stockdeta").textContent = rs['stock'];
              document.getElementById("marcadeta").textContent = rs['marca'];
              document.getElementById("sededetat").textContent = rs['sede'];
+             if (rs['imagen']=='') {
+             document.getElementById("imgdeta").src='img/de.png';
+
+             }
            
 
 

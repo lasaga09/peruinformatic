@@ -16,10 +16,40 @@
 
 @section('style')
 <link rel="stylesheet" type="text/css" href="css/producto.css">
+<link rel="stylesheet" type="text/css" href="css/producto_animacioncargaSugerencias.css">
 
 @endsection
 
 @section('contenido-header')
+
+<div style="width:100px;display: none" id="cargaSimulada" >
+	<div class="loading-wrap">
+  <div class="triangle1"></div>
+  <div class="triangle2"></div>
+  <div class="triangle3"></div>
+</div>
+</div>
+
+
+{{-- sugerencia --}}
+<div class="alert  alert-dismissible fade show" role="alert" style="display: none;background: #009975;color:#fff" id="msu">
+  <strong>Sugerencias!</strong> <hr>
+
+	<div id="datosSugerencia" class="row d-flex justify-content-around">
+
+	
+		   
+
+		
+	</div>
+
+  <button type="button" class="close" id="btnclosesu" style="color:#fff">
+    <span aria-hidden="true" style="color:#fff;">X</span>
+  </button>
+</div>
+
+
+
 
 {{-- add --}}
 
@@ -360,7 +390,7 @@
 
 		@if (session('idsede') !=6)
 			@if ($value->stock == 0)
-					 <button id  ="btnSugeriri" class="btn btn-success" tokenSugerir="{{ csrf_token() }} "  idcateDel="{{$value->idproducto}}"><i class="fa fa-bell" aria-hidden="true"></i></button>
+					 <button id="btnSugerir" class="btn btn-success" tokenSugerir="{{ csrf_token() }} "  idproductosugerencia="{{$value->idproducto}}"><i class="fa fa-bell" aria-hidden="true"></i></button>
 			@endif
 		@endif
 
@@ -563,5 +593,6 @@
 
 @section('scripts')
  <script type="text/javascript" src="js/productos.js"></script>
+  <script type="text/javascript" src="js/sugerencia.js"></script>
 
 @endsection

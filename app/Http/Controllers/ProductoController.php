@@ -60,8 +60,28 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+
+        /*buscamos el producto por el id*/
+          $nombre=Producto::find($request->id);
+
+        /*filtramos los productos con el mismo nombre y el stock mayor de 0*/
+        /*$productos=Producto::select('idproducto')->where('nombre',$nombre->nombre)->where('stock','>',0);
+*/
+                       $productos = Producto::select('productos.idproducto','productos.nombre as producto','marcas.nombre as marca','productos.modelo','colores.nombre as color','productos.descripcion','productos.stock','productos.pantalla_generica','productos.pantalla_original','productos.precio_compra','productos.precio_venta','productos.imagen','categorias.nombre as categoria','sedes.nombre as sede')
+                       ->join('marcas', 'marcas.idmarcas', '=', 'productos.id_marca')
+                       ->join('colores', 'colores.idcolores', '=', 'productos.id_color')
+                       ->join('categorias', 'categorias.idcategoria', '=', 'productos.id_categoria')
+                       ->join('sedes', 'sedes.idsede', '=', 'productos.id_sede')->where('productos.nombre',$nombre->nombre)->where('stock','>',0)->get();
+                     
+
+                      
+                        return $productos;
+
+                       
+
+              
         
     }
 
@@ -144,10 +164,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto,$id)
     {
-    if($request->hasFile('imagen')){
-     return 'si';
-    }
-    return 'no';
+   
     
 
 
