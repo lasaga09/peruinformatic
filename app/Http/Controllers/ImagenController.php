@@ -32,8 +32,10 @@ class ImagenController extends Controller
              $producto->stock=$request->stockup;
              $producto->pantalla_generica=$request->genericaup;
              $producto->pantalla_original=$request->originalup;
+             $producto->pantalla_alternativo=$request->alternativoup;
              $producto->precio_compra=$request->compraup;
              $producto->precio_venta=$request->ventaup;
+             $producto->precio_descuento=$request->descuentoup;
              $producto->id_categoria=$request->categoriaup;
              $producto->id_sede=$request->idsedeup;
              $producto->save();

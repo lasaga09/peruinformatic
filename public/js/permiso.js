@@ -1,8 +1,11 @@
-
-
+document.getElementById("TitlePer").addEventListener("click",function(){
+document.getElementById("cardPermisos").style.display = 'none';
+document.getElementById("TitlePer").style.display = 'none';
+});
 
 $(document).on("click","#btnPermiso",function(){
 document.getElementById("cardPermisos").style.display = 'block';
+document.getElementById("TitlePer").style.display = 'block';
 
    var id = this.getAttribute("iduserper");
    var nombre = this.getAttribute("usuario");

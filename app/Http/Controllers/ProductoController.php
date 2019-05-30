@@ -110,8 +110,10 @@ class ProductoController extends Controller
              $producto->stock=$request->stock;
              $producto->pantalla_generica=$request->generica;
              $producto->pantalla_original=$request->original;
+             $producto->pantalla_alternativo=$request->alternativo;
              $producto->precio_compra=$request->compra;
              $producto->precio_venta=$request->venta;
+              $producto->precio_descuento=$request->descuento;
              $producto->imagen=$name;
              $producto->id_categoria=$request->categoria;
              $producto->id_sede=$request->idsede;
@@ -145,7 +147,7 @@ class ProductoController extends Controller
     public function edit(Request $request,Producto $producto,$id)
     {
        
-         $datos = Producto::select('productos.idproducto','productos.nombre as producto','marcas.nombre as marca','productos.modelo','colores.nombre as color','productos.descripcion','productos.stock','productos.pantalla_generica','productos.pantalla_original','productos.precio_compra','productos.precio_venta','productos.imagen','categorias.nombre as categoria','sedes.nombre as sede')
+         $datos = Producto::select('productos.idproducto','productos.nombre as producto','marcas.nombre as marca','productos.precio_descuento','productos.pantalla_alternativo','productos.modelo','colores.nombre as color','productos.descripcion','productos.stock','productos.pantalla_generica','productos.pantalla_original','productos.precio_compra','productos.precio_venta','productos.imagen','categorias.nombre as categoria','sedes.nombre as sede')
                        ->join('marcas', 'marcas.idmarcas', '=', 'productos.id_marca')
                        ->join('colores', 'colores.idcolores', '=', 'productos.id_color')
                        ->join('categorias', 'categorias.idcategoria', '=', 'productos.id_categoria')

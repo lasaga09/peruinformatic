@@ -88,6 +88,10 @@ $(document).on("click","#btnEdit",function(){
 			document.getElementById("compraup").value=rs['precio_compra'];
 			document.getElementById("ventaup").value=rs['precio_venta'];
 			document.getElementById("stockup").value=rs['stock'];
+			document.getElementById("alternativoup").value=rs['pantalla_alternativo'];
+			document.getElementById("descuentoup").value=rs['precio_descuento'];
+
+
 			document.getElementById("categoriaup").value=rs['id_categoria'];
 
             document.getElementById("imgshowup").src='imagenes/'+rs['imagen'];
@@ -204,6 +208,8 @@ $(document).on("click","#btnDetails",function(e){
             document.getElementById("stockdeta").textContent = rs['stock'];
              document.getElementById("marcadeta").textContent = rs['marca'];
              document.getElementById("sededetat").textContent = rs['sede'];
+               document.getElementById("alternativodeta").textContent = rs['pantalla_alternativo'];
+                 document.getElementById("descuentodeta").textContent = rs['precio_descuento'];
              if (rs['imagen']=='') {
              document.getElementById("imgdeta").src='img/de.png';
 

@@ -23,10 +23,23 @@ class UsuarioContoller extends Controller
                      if(session('idusuario')){
                     /* $datos = Usuario::all();  */
 
-                          $datos = Usuario::select('usuarios.idusuario','usuarios.nombre','usuarios.usuario','roles.rol','sedes.nombre as sede')
-                          ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
-                          ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
-                          ->get();
+                          if(session('idsede')==6){
+                            $datos = Usuario::select('usuarios.idusuario','usuarios.nombre','usuarios.usuario','roles.rol','sedes.nombre as sede')
+                            ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
+                            ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')
+                            ->get();
+
+
+                          }else{
+                            $datos = Usuario::select('usuarios.idusuario','usuarios.nombre','usuarios.usuario','roles.rol','sedes.nombre as sede')
+                            ->join('roles', 'roles.idrol', '=', 'usuarios.id_rol')
+                            ->join('sedes', 'sedes.idsede', '=', 'usuarios.id_sede')->where('id_sede',session('idsede'))
+                            ->get();
+                          }
+
+
+
+
 
                           $rol=Rol::all();
                          $sede = DB::table('sedes')->get();

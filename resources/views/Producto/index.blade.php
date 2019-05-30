@@ -107,17 +107,23 @@
 	<li class="list-group-item"><b>Color: </b> <span id="colordeta"></span></li>
 	<li class="list-group-item"><b>Categoria: </b> <span id="categoriadeta"></span></li>
 	   <li class="list-group-item">
-	   	<b>P/Generica: </b> <span id="genericadeta"></span> 
-	   	<b style="margin-left: 20%">P/Original: </b> <span id="originaldeta"></span>
+	   	<b>Generica: </b> <span id="genericadeta"></span> 
+	   	
+	   	<b style="margin-left: 10%">Alternativo: </b> <span id="alternativodeta"></span>
+	   	<b style="margin-left: 10%">Original: </b> <span id="originaldeta"></span>
 
 	   </li>
 		
-		<li class="list-group-item">
-			<b>P/Compra: </b> <span id="compradeta"></span> 
-			<b style="margin-left: 20%">P/Venta: </b> <span id="ventadeta"></span>
+		<li class="list-group-item" >
+			<b>P/Punto: </b> <span id="compradeta" style="border: 1px #D3D1D1 solid;background: #FB4848;color:#fff"></span> 
+			<b style="margin-left: 2%">P/Desct: </b><span id="descuentodeta" style="border: 1px #D3D1D1 solid;background: #FAAB44;color: #fff"></span>
+			<b style="margin-left: 2%">P/Venta: </b> <span id="ventadeta" style="border: 1px #D3D1D1 solid;background: #67C46E;color: #fff"></span>
 		</li>
 		
-		<li class="list-group-item"><b>Stock: </b> <span id="stockdeta"></span></li>
+		<li class="list-group-item"><b>Stock: </b> 
+
+
+            <span id="stockdeta"></span></li>
 		</div>
 
 			
@@ -150,7 +156,7 @@
 
 
 
-<!-- Modal -->
+<!-- Modal agregar -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -210,14 +216,20 @@
 
 			<div class="row">
 				
-				<div class="col-6">
-					<label for="pgenegenericarica">P/Generica</label>
+				<div class="col-4">
+					<label for="pgenegenericarica">Generica</label>
 					<input type="number" class="form-control" id="generica" name="generica" aria-describedby="emailHelp" placeholder="Generica" required="">
 					<small id="categoriaValidacion" class="form-text text-muted"></small>
 				</div>
-				<div class="col-6">
-					<label for="original">P/Original</label>
+				<div class="col-4">
+					<label for="original">Original</label>
 					<input type="number" class="form-control" id="original" name="original" aria-describedby="emailHelp" placeholder="Original" required="">
+					<small id="categoriaValidacion" class="form-text text-muted"></small>
+				</div>
+
+				<div class="col-4">
+					<label for="alternativo">Alternativo</label>
+					<input type="number" class="form-control" id="alternativo" name="alternativo" aria-describedby="emailHelp" placeholder="alternativo" required="">
 					<small id="categoriaValidacion" class="form-text text-muted"></small>
 				</div>
 				
@@ -227,25 +239,34 @@
 		       
 
 
-				<div class="row">
+				<div class="row mt-3">
 					
-					<div class="col-6">
-						<label for="compra">P/Compra</label>
+					<div class="col-4">
+						<label for="compra">P/Punto</label>
 						<input type="number" class="form-control" id="compra" name="compra" aria-describedby="emailHelp" placeholder="precio de compra" required="">
 						<small id="categoriaValidacion" class="form-text text-muted"></small>
 					</div>
-					<div class="col-6">
+
+					<div class="col-4">
+						<label for="descuento">P/Descuento</label>
+						<input type="number" class="form-control" id="descuento" name="descuento" aria-describedby="emailHelp" placeholder="Precio con descuento" required="">
+						<small id="categoriaValidacion" class="form-text text-muted"></small>
+					</div>
+
+					<div class="col-4">
 						<label for="venta">P/Venta</label>
 						<input type="number" class="form-control" id="venta" name="venta" aria-describedby="emailHelp" placeholder="Precio de venta" required="">
 						<small id="categoriaValidacion" class="form-text text-muted"></small>
 					</div>
+
+					
 					
 				</div>
 
 
 
 
-				<div class="row">
+				<div class="row mt-3">
 					<div class="col-6">
 						
 						<label for="stock">Stock</label>
@@ -334,8 +355,8 @@
       <th scope="col">Marca</th>
       <th scope="col">Modelo</th>
       <th scope="col">Color</th>
-      <th scope="col">P/Generica</th>
-      <th scope="col">P/Original</th>
+      <th scope="col">Generico</th>
+      <th scope="col">Original</th>
       <th scope="col">P/Venta</th>
 		<th scope="col">Stock</th>
 		@if (session('idsede') == 6)
@@ -473,16 +494,21 @@
 			</div>
 				
 
-			<div class="row">
+			<div class="row mt-3">
 				
-				<div class="col-6">
-					<label for="genericaricaup">P/Generica</label>
-					<input type="number" class="form-control" id="genericaup" name="genericaup" aria-describedby="emailHelp" placeholder="Generica" required="">
+				<div class="col-4">
+					<label for="genericaricaup">Generica</label>
+					<input type="number" class="form-control" id="genericaup" name="genericaup" aria-describedby="emailHelp" placeholder="" required="">
 					<small id="categoriaValidacion" class="form-text text-muted"></small>
 				</div>
-				<div class="col-6">
-					<label for="originalup">P/Original</label>
-					<input type="number" class="form-control" id="originalup" name="originalup" aria-describedby="emailHelp" placeholder="Original" required="">
+				<div class="col-4">
+					<label for="originalup">Original</label>
+					<input type="number" class="form-control" id="originalup" name="originalup" aria-describedby="emailHelp" placeholder="" required="">
+					<small id="categoriaValidacion" class="form-text text-muted"></small>
+				</div>
+				<div class="col-4">
+					<label for="alternativoup">Alternativo</label>
+					<input type="number" class="form-control" id="alternativoup" name="alternativoup" aria-describedby="emailHelp" placeholder="" required="">
 					<small id="categoriaValidacion" class="form-text text-muted"></small>
 				</div>
 				
@@ -490,14 +516,19 @@
 
 
 
-				<div class="row">
+				<div class="row mt-3">
 					
-					<div class="col-6">
+					<div class="col-4">
 						<label for="compraup">P/Compra</label>
 						<input type="number" class="form-control" id="compraup" name="compraup" aria-describedby="emailHelp" placeholder="precio de compra" required="">
 						<small id="categoriaValidacion" class="form-text text-muted"></small>
 					</div>
-					<div class="col-6">
+					<div class="col-4">
+						<label for="descuentoup">P/Descuento</label>
+						<input type="number" class="form-control" id="descuentoup" name="descuentoup" aria-describedby="emailHelp" placeholder="" required="">
+						<small id="categoriaValidacion" class="form-text text-muted"></small>
+					</div>
+					<div class="col-4">
 						<label for="ventaup">P/Venta</label>
 						<input type="number" class="form-control" id="ventaup" name="ventaup" aria-describedby="emailHelp" placeholder="Precio de venta" required="">
 						<small id="categoriaValidacion" class="form-text text-muted"></small>

@@ -48,13 +48,13 @@
             
             <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="categoria" aria-describedby="emailHelp" placeholder="nombre" required="">
+            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp" placeholder="nombre" required="">
             <small id="categoriaValidacion" class="form-text text-muted"></small>
             </div>
 
             <div class="form-group">
             <label for="usuario">Usuario</label>
-            <input type="text" class="form-control" id="usuario" name="categoria" aria-describedby="emailHelp" placeholder="usuario" required="">
+            <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="emailHelp" placeholder="usuario" required="">
             <small id="categoriaValidacion" class="form-text text-muted"></small>
             </div>
 
@@ -88,16 +88,24 @@
            
 
             
-            <div class="form-group">
+           @if (session('idsede') == 6)
+              <div class="form-group">
             <label for="rpassword">Seleccione Sede</label><br>
-							<select name="sede" id="sede" style="width: 50%">
-							@foreach ($sede as $t)
-							<option value="{{$t->idsede}}">{{$t->nombre}}</option>
-							@endforeach
-							
-							</select>
+              <select name="sede" id="sede" style="width: 50%">
+              @foreach ($sede as $t)
+              <option value="{{$t->idsede}}">{{$t->nombre}}</option>
+              @endforeach
+              
+              </select>
             </div>
-            
+           @else
+
+         <input type="text" name="sede" id="sede" hidden="" value=" {{session('idsede')}}">
+
+
+           @endif
+
+          
             
            
             
@@ -174,7 +182,7 @@
             </div>
            
 
-            
+                  @if (session('idsede') == 6)
             <div class="form-group">
             <label for="rpassword">Seleccione Sede</label><br>
 							<select name="sedeup" id="sedeup" style="width: 50%">
@@ -184,6 +192,11 @@
 							
 							</select>
             </div>
+            @else
+            <input type="text" name="sedeup" id="sedeup" hidden="" value="{{session('idsede')}}">
+
+            @endif
+
             
             
            
@@ -207,13 +220,15 @@
 {{-- modelo tabla --}}
 <div class="table-responsive">
 <table class="table table-hover" id="tableData">
- <thead class="thead-dark">
+ <thead class="thead" style="background: #1E3E8B;color:#fff">
     <tr>
       {{-- <th scope="col">#</th> --}}
       <th scope="col">Nombre</th>
       <th scope="col">Usuario</th>
        <th scope="col">Rol</th>
-       <th scope="col">Sede</th>
+       @if (session('idsede')==6)
+         <th scope="col">Sede</th>
+       @endif
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -224,7 +239,9 @@
       <td data-label='Nombre'>{{$value->nombre}}</td>
       <td data-label='Usuario'>{{$value->usuario}}</td>
       <td data-label='Rol'>{{$value->rol}}</td>
-      <td data-label='Sede'>{{$value->sede}}</td>
+     @if (session('idsede')==6)
+        <td data-label='Sede'>{{$value->sede}}</td>
+     @endif
       <td data-label='Acciones'>
        
        <button data-toggle ="modal" class="btn btn-warning"  data-target="#edit" id="btnEdit" iduser=' {{$value->idusuario}}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -247,21 +264,22 @@
 
 <br><br><br><br>
 
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
+<div class="alert alert-dismissible fade show" role="alert" style="background: #1E3E8B;color: #fff;display: none" id="TitlePer">
   <strong>OTORGAR PERMISOS!</strong> 
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
+  <button type="button" class="close" style="color: #fff">
+    <span aria-hidden="true"><i class="fa fa-check-square-o" aria-hidden="true"></i></span>
   </button>
 </div>
 
-<div class="card text-white mb-3" style="max-width: 100%;background: #4592af;display: none" id="cardPermisos">
-  <div class="card-header text-center" id="divnombre" style="color: #FDC03D;font-size: 22px"></div>
+<div class="card text-white mb-3" style="max-width: 100%;background: #688CAE;display: none" id="cardPermisos">
+  <div class="card-header text-center" id="divnombre" style="color: #fff;font-size: 22px;font-weight: 600"></div>
   <div class="card-body">
     <div style="display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(6,1fr);
   margin:5px;
 
+  
   width: 100%;
   height:155px;
   background:;">
@@ -322,7 +340,7 @@
        <div></div>
        <input type="text" name="" id="idusuarioactualizar" hidden="">
        <input type="" name="" id="token" value="{{ csrf_token() }}" hidden="">
-     <button id="btnUpdatePermiso"  style="grid-column: span 3;background: orange;border-radius: 5px;cursor: pointer;color: #fff;font-weight: 600"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Cambios</button>
+     <button id="btnUpdatePermiso"  style="grid-column: span 3;background:#fff;border-radius: 5px;cursor: pointer;color: #000;font-weight: 600"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar Cambios</button>
 
   </div>
 </div>
