@@ -24,9 +24,13 @@ Route::resource('Categoria','CategoriaController');
 Route::resource('Proveedor','ProveedorController');
 Route::resource('Rol','RolController');
 Route::resource('Producto','ProductoController');
+Route::resource('Compra','CompraController');
 
 /*para actualizar con imagen*/
 Route::post('ProductoUp/{id}','ImagenController@up')->name('Producto.up');
+
+/*obtner el id el ultimo registro de compras*/
+/*Route::post('Ultimoid','ImagenController@ultimoid')->name('Ultimoid.ultimoid');*/
 
 
 Route::put('Permiso/{id}','PermisoController@update')->name('Permiso.update');

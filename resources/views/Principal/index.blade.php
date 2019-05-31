@@ -160,7 +160,7 @@
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" style="pointer-events:none;
+                <a href="Venta" style="pointer-events:none;
                 cursor: pointer;" class="small-box-footer">ir a ventas <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -175,7 +175,7 @@
                   <div class="icon">
                     <i class="ion ion-bag"></i>
                   </div>
-                  <a href="#" class="small-box-footer">ir a ventas <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="Venta" class="small-box-footer">ir a ventas <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
               </div>
 
@@ -238,7 +238,7 @@
                     <div class="icon">
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </div>
-                    <a href="#" style="pointer-events:none;
+                    <a href="Compra" style="pointer-events:none;
                     cursor: pointer;" class="small-box-footer">ir compras <i class="fa fa-arrow-circle-right"></i></a>
                   </div>
                 </div>
@@ -252,7 +252,7 @@
                       <div class="icon">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                       </div>
-                      <a href="#" class="small-box-footer">ir compras <i class="fa fa-arrow-circle-right"></i></a>
+                      <a href="Compra" class="small-box-footer">ir compras <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                   </div>
 

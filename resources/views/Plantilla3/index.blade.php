@@ -333,13 +333,7 @@
                 </a>
               </li>
        
-             <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Dar permisos</p>
-                </a>
-              </li>
-             
+            
             </ul>
           </li>
 
@@ -364,7 +358,7 @@
 
                 @if (session('permisos')->pcompra == 0)
               <li class="nav-item">
-                <a href="" style="pointer-events:none;
+                <a href="Compra" style="pointer-events:none;
               cursor: pointer;" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Compras</p>
@@ -372,7 +366,7 @@
               </li>
               @else
                <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="Compra" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Compras</p>
                 </a>
@@ -383,7 +377,7 @@
 
 @if (session('permisos')->pventa == 0)
               <li class="nav-item">
-                <a href="" style="pointer-events:none;
+                <a href="Venta" style="pointer-events:none;
               cursor: pointer;" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Ventas</p>
@@ -391,7 +385,7 @@
               </li>
 @else
 <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="Venta" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
                   <p>Ventas</p>
                 </a>
@@ -401,13 +395,6 @@
 @endif
 
 
-
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
             </ul>
           </li>
 

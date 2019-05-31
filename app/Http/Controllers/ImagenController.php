@@ -46,5 +46,15 @@ class ImagenController extends Controller
 }
 
 
+/*para obtener el ultimo id del compras*/
+
+public function ultimoid(){
+
+    return 'ultimo';
+
+
+}
+
+
 
 }
