@@ -24,14 +24,29 @@ class CompraController extends Controller
 
              $proveedor = Proveedor::all();
 
+
+               /*ultimo id insertado por sede y sumamos +1 para insertar el siguient serie de compra*/
               $ultimoids=Compra::orderby('idcompras','DESC')->take(1)->get();
+
+             
               if($ultimoids->isEmpty()){
-              $ultimoid=1;
+              $idLatest=1;
               }else{
-              $ultimoid=$ultimoids[0]->idcompras + 1;
+              $idLatest=$ultimoids[0]->idcompras + 1;
               }
-         
-                     return view('Compras.index',compact('datos','proveedor','ultimoid')); 
+
+              $totalRegistros=Compra::all()->where('id_sede',session('idsede'))->count();
+              $ultimoid=$totalRegistros + 1;
+
+
+              $productos=[];
+                
+               
+                
+
+             
+
+                     return view('Compras.index',compact('datos','proveedor','ultimoid','idLatest','productos')); 
                      }      
                      return redirect()->route('Login.index');
     }

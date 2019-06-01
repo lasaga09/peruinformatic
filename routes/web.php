@@ -33,6 +33,10 @@ Route::post('ProductoUp/{id}','ImagenController@up')->name('Producto.up');
 /*Route::post('Ultimoid','ImagenController@ultimoid')->name('Ultimoid.ultimoid');*/
 
 
+/*para uso opcionales*/
+Route::get('Items','OtroController@items')->name('Items.items');
+
+
 Route::put('Permiso/{id}','PermisoController@update')->name('Permiso.update');
 Route::get('Permiso/{id}','PermisoController@show')->name('Permiso.show');
 

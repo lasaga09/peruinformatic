@@ -19,7 +19,9 @@
 @endsection
 
 @section('contenido-header')
-<input type="text" name="ultimoid" id="ultimoid" hidden="" value="{{$ultimoid}}">
+<input type="text" name="ultimoid" id="ultimoid"  value="{{$ultimoid}}">
+
+
 	
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -97,10 +99,12 @@
 				<meta name="token" content="{{ csrf_token() }}"> --}}
 				
 				<input type="text" name="" id="token" hidden="" value="{{ csrf_token() }}">
+			
 				<br>
-				<div class="row" style="border:1px #CCCACA solid;padding:10px">
+				<div class="row" style="border:1px #CCCACA solid;padding:10px;-webkit-box-shadow: 0 0 8px 2px #1499FF;
+                  box-shadow: 0 0 8px 2px #1499FF;background:;">
 				
-				<div class="col-3 col-sm-2">
+				<div class="col-6 col-sm-2">
 
 						<div class  ="input-group mb-3">
 						<input type ="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" id="numero" name="numero" disabled="">
@@ -118,20 +122,139 @@
 					</div>
 					</div>
 				</div>
+				{{-- idsede --}}
+				<input type="text" name="sede" id="sede" hidden="" value="{{session('idsede')}}">
+				<input type="text" name="usuario" id="usuario" hidden="" value="{{session('idusuario')}}">
 
+					<div class="col-12 col-sm-6">
 
-
+						<div class  ="input-group mb-3">
+						<input type ="text" class="form-control" placeholder="Direccion" aria-label="Username" aria-describedby="basic-addon1" id="direccion" name="direccion" >
+						</div>
 				</div>
-				<br>
 
+                     {{-- div productos --}}
+					<div class ="container" style="border:1px #CCCACA solid;padding:10px;width: 100%">
+					
+						<div class="row">
+                              	<input type="text" name="idcompra" id="idcompra" hidden="" value="{{$idLatest}}">
+								<div class="col-6 col-sm-6">
+								<div class  ="input-group mb-3">
+								<input type="text" name="producto" id="producto" hidden="">{{-- idproducto --}}
+								<input type ="text" class="form-control" placeholder="Producto" aria-label="proveedor" aria-describedby="basic-addon1" disabled="" id="verproducto">
+								<div class  ="input-group-prepend">
+								<span class ="input-group-text" id="basic-addon1">
+								<i class="fa fa-search" aria-hidden="true" id="BuscarProduct" data-toggle="modal" data-target="#modalProve" style="cursor: pointer;"></i>
+								</span>
+								</div>
+								</div>
+								</div>
+								
+								{{-- generico --}}
+							<div class="col-2 col-sm-2">
+									<div class  ="input-group mb-3">
+									<input type="number" name="generico" id="generico" class="form-control" placeholder="generico">
+									</div>
+							</div>
+							<div class="col-2 col-sm-2">
+									<div class  ="input-group mb-3">
+									<input type="number" name="alternativo" id="alternativo" class="form-control" placeholder="alternativo">
+									</div>
+							</div>
+
+							<div class="col-2 col-sm-2">
+									<div class  ="input-group mb-3">
+									<input type="number" name="original" id="original" class="form-control" placeholder="original">
+									</div>
+							</div>
+								
+						
+						</div>
+
+						<div class="row">
+
+							<div class="col-6 col-sm-6">
+							<div class  ="input-group mb-3">
+							<input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="descripcion">
+							</div>
+							</div>
+
+							<div class="col-6 col-sm-2">
+							<div class  ="input-group mb-3">
+							<input type="number" name="precio" value="" id="precio" placeholder="precio" class="form-control">
+							</div>
+							</div>
+							
+
+							<div class="col-6 col-sm-2">
+							<div class  ="input-group mb-3">
+							<input type="number" name="cantidad" id="cantidad" placeholder="cantidad" class="form-control" value="">
+							</div>
+							</div>
+
+
+							<div class="col-6 col-sm-2">
+							<div class  ="input-group mb-3">
+							<input type="number" name="subtotal" id="subtotal" placeholder="total" class="form-control" disabled="">
+							</div>
+							</div>
+
+
+							
+
+						</div>
+
+
+						<button type ="button" class="btn btn-success" id="btnaddItem"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+
+					</div>
+					<div class="m-2"></div>
+					
+
+
+
+
+					{{-- tabla items --}}
+
+					<div class="container">
+
+						<table class="table">
+						<thead class="thead-dark">
+						<tr>
+						<th scope="col">Producto</th>
+						<th scope="col">Cantidad</th>
+						<th scope="col">Subtotal</th>
+						<th scope="col">Acciones</th>
+						</tr>
+						</thead>
+						<tbody id="tbody">
+
+						
+							
+								
+							
 				
-				
-				
-				
-				
-				
+					
+
+
+						</tbody>
+						</table>
+
+					</div>
+
+     {{-- header compra --}}
+		<div class ="container" style="border:1px #CCCACA solid;padding:10px;width: 100%">
+
 				<button type ="button" class="btn btn-success" id="btnAdd"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
 				
+        </div>
+				
+
+				</div>
+
+
+
+			
 				
 				</form>
 				</div>
@@ -217,4 +340,5 @@
 
 @section('scripts')
  <script type="text/javascript" src="js/compra.js"></script>
+  <script type="text/javascript" src="js/compraadd.js"></script>
 @endsection
