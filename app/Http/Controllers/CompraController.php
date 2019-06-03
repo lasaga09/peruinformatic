@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Compra;
 use App\Proveedor;
+use App\Producto;
+use App\CompraDetalle;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CompraController extends Controller
@@ -39,13 +42,19 @@ class CompraController extends Controller
               $ultimoid=$totalRegistros + 1;
 
 
-              $productos=[];
-                
-               
-                
-
              
+                
+               /*lista de colores*/
+           $productos=Producto::select('productos.idproducto','productos.nombre as producto',
+                                       'marcas.nombre as marca','productos.modelo','colores.nombre as color')
+                             ->join('marcas','marcas.idmarcas','=','productos.id_marca')
+                             ->join('colores','colores.idcolores','=','productos.id_color')
+                             
+                             ->where('id_sede',session('idsede'))->get();
 
+
+                             
+            
                      return view('Compras.index',compact('datos','proveedor','ultimoid','idLatest','productos')); 
                      }      
                      return redirect()->route('Login.index');
@@ -69,7 +78,58 @@ class CompraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+
+       try {
+        DB::beginTransaction();
+
+        $compra = new Compra();
+        $compra->numerocompra=$request->numero;
+        $compra->id_proveedor=$request->proveedor;
+        $compra->id_sede=$request->sede;
+        $compra->total=$request->total_venta;
+        $compra->id_usuario=$request->usuario;
+        $compra->save();
+
+     
+       
+        $idproducto=$request->idproducto;
+        $cantidad=$request->cantidad;
+        $generico=$request->generico;
+        $alternativo=$request->alternativo;
+        $original=$request->original;
+        $precio=$request->precio;
+        $importe=$request->subtotal;
+        $cont=0;
+
+        while($cont < count($idproducto)){
+           $datos = new CompraDetalle();
+           $datos->id_compra=$compra->idcompras;
+           $datos->id_producto=$idproducto[$cont];
+           $datos->cantidad=$cantidad[$cont];
+           $datos->generico=$generico[$cont];
+           $datos->alternativo=$alternativo[$cont];
+           $datos->original=$original[$cont];;
+           $datos->precio=$precio[$cont];
+           $datos->importe=$importe[$cont];
+           $datos->save();
+           $cont=$cont+1;
+
+        }
+        DB::commit();
+
+           
+       } catch (Exception $e) {
+           DB::rollback();
+       }
+        
+        return 'ss';
+
+
+
+
+
+
     }
 
     /**

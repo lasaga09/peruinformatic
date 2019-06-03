@@ -93,12 +93,14 @@
 				
 				
 				{{-- agregar compra --}}
-				<form>
+				<form action="Compra" method="POST">
 				
 				{{--  
 				<meta name="token" content="{{ csrf_token() }}"> --}}
+			@csrf
 				
-				<input type="text" name="" id="token" hidden="" value="{{ csrf_token() }}">
+				
+				{{-- <input type="text" name="" id="token" hidden="" value="{{ csrf_token() }}"> --}}
 			
 				<br>
 				<div class="row" style="border:1px #CCCACA solid;padding:10px;-webkit-box-shadow: 0 0 8px 2px #1499FF;
@@ -107,12 +109,13 @@
 				<div class="col-6 col-sm-2">
 
 						<div class  ="input-group mb-3">
-						<input type ="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" id="numero" name="numero" disabled="">
+						<input style="" type ="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" id="numero" disabled="">
 						</div>
 				</div>
 
 				<div class="col-6 col-sm-4">
 					<div class  ="input-group mb-3">
+					<input type="text" hidden="" name="numero" id="numerocompra">
 					<input type="text" name="proveedor" id="proveedor" hidden="">{{-- idproveddor --}}
 					<input type ="text" class="form-control" placeholder="Proveedor" aria-label="proveedor" aria-describedby="basic-addon1" disabled="" id="verproveedor">
 					<div class  ="input-group-prepend">
@@ -137,14 +140,14 @@
 					<div class ="container" style="border:1px #CCCACA solid;padding:10px;width: 100%">
 					
 						<div class="row">
-                              	<input type="text" name="idcompra" id="idcompra" hidden="" value="{{$idLatest}}">
+                              	<input type="text"  id="idcompra"  name="idcompra"  value="{{$idLatest}}">
 								<div class="col-6 col-sm-6">
 								<div class  ="input-group mb-3">
-								<input type="text" name="producto" id="producto" hidden="">{{-- idproducto --}}
-								<input type ="text" class="form-control" placeholder="Producto" aria-label="proveedor" aria-describedby="basic-addon1" disabled="" id="verproducto">
+								<input type="text" id="producto" hidden="" >{{-- idproducto --}}
+								<input type ="text" class="form-control" placeholder="Producto" aria-label="producto" aria-describedby="basic-addon1" disabled="" id="verproducto">
 								<div class  ="input-group-prepend">
 								<span class ="input-group-text" id="basic-addon1">
-								<i class="fa fa-search" aria-hidden="true" id="BuscarProduct" data-toggle="modal" data-target="#modalProve" style="cursor: pointer;"></i>
+								<i class="fa fa-search" aria-hidden="true" id="BuscarProduct" data-toggle="modal" data-target="#modalProducto" style="cursor: pointer;"></i>
 								</span>
 								</div>
 								</div>
@@ -153,18 +156,18 @@
 								{{-- generico --}}
 							<div class="col-2 col-sm-2">
 									<div class  ="input-group mb-3">
-									<input type="number" name="generico" id="generico" class="form-control" placeholder="generico">
+									<input type="number"  id="generico" class="form-control" placeholder="generico">
 									</div>
 							</div>
 							<div class="col-2 col-sm-2">
 									<div class  ="input-group mb-3">
-									<input type="number" name="alternativo" id="alternativo" class="form-control" placeholder="alternativo">
+									<input type="number" id="alternativo" class="form-control" placeholder="alternativo">
 									</div>
 							</div>
 
 							<div class="col-2 col-sm-2">
 									<div class  ="input-group mb-3">
-									<input type="number" name="original" id="original" class="form-control" placeholder="original">
+									<input type="number"  id="original" class="form-control" placeholder="original">
 									</div>
 							</div>
 								
@@ -175,27 +178,27 @@
 
 							<div class="col-6 col-sm-6">
 							<div class  ="input-group mb-3">
-							<input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="descripcion">
+							<input type="text"  id="descripcion" class="form-control" placeholder="descripcion">
 							</div>
 							</div>
 
 							<div class="col-6 col-sm-2">
 							<div class  ="input-group mb-3">
-							<input type="number" name="precio" value="" id="precio" placeholder="precio" class="form-control">
+							<input type="number"  value="" id="precio" placeholder="precio" class="form-control">
 							</div>
 							</div>
 							
 
 							<div class="col-6 col-sm-2">
 							<div class  ="input-group mb-3">
-							<input type="number" name="cantidad" id="cantidad" placeholder="cantidad" class="form-control" value="">
+							<input type="number"  id="cantidad" placeholder="cantidad" class="form-control" value="">
 							</div>
 							</div>
 
 
 							<div class="col-6 col-sm-2">
 							<div class  ="input-group mb-3">
-							<input type="number" name="subtotal" id="subtotal" placeholder="total" class="form-control" disabled="">
+							<input type="number"  id="subtotal" placeholder="total" class="form-control" disabled="">
 							</div>
 							</div>
 
@@ -203,6 +206,7 @@
 							
 
 						</div>
+						 <input type="text" name="" id="tokenitems" hidden="" value="{{ csrf_token() }}">
 
 
 						<button type ="button" class="btn btn-success" id="btnaddItem"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
@@ -222,22 +226,34 @@
 						<thead class="thead-dark">
 						<tr>
 						<th scope="col">Producto</th>
-						<th scope="col">Cantidad</th>
+						<th scope="col">generico</th>
+						<th scope="col">alternativo</th>
+						<th scope="col">original</th>
+						<th scope="col">precio</th>
+				    	<th scope="col">Cantidad</th>
 						<th scope="col">Subtotal</th>
 						<th scope="col">Acciones</th>
 						</tr>
 						</thead>
-						<tbody id="tbody">
-
-						
-							
-								
-							
-				
 					
+						<tbody id="detalles">
 
 
+				
 						</tbody>
+							<tfoot>
+					
+							<th>Total</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th><h4 id="total">S/. 0.0</h4><input type="text" name="total_venta" id="total_venta" hidden=""></th>
+					</tfoot>
+
+					
 						</table>
 
 					</div>
@@ -245,18 +261,21 @@
      {{-- header compra --}}
 		<div class ="container" style="border:1px #CCCACA solid;padding:10px;width: 100%">
 
-				<button type ="button" class="btn btn-success" id="btnAdd"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+				<button type ="submit" class="btn btn-success" id="btnAdd"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
 				
         </div>
-				
+ 
+	</form>
+			
+							
 
-				</div>
+     	</div>
 
 
 
 			
 				
-				</form>
+			
 				</div>
 
  
@@ -326,6 +345,69 @@
 	</div>
 </div>
 
+
+<!-- Modal Producto -->
+
+<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="table-responsive">
+
+
+
+
+<table class="table table-hover pagi" id="tal">
+ <thead class="" style="background: #1E3E8B;color: #fff">
+    <tr>
+		<th scope="col">#</th>
+		<th scope="col">Nombre</th>
+		<th scope="col">Modelo</th>
+		<th scope="col">Marca</th>
+		<th scope="col">Color</th>
+		
+		<th scope="col">Seleccionar</th>
+    </tr>
+  </thead>
+  <tbody id="tableb">  
+		@foreach ($productos as $value)
+		<tr>
+		<td>{{$value->idproducto}}</td>
+		<td>{{$value->producto}}</td>
+		<td>{{$value->modelo}}</td>
+		<td>{{$value->marca}}</td>
+		<td>{{$value->color}}</td>
+		<td>
+		
+		<button class="btn btn-success"  idproducto='{{$value->idproducto}}' nombrepro='{{$value->producto}}' id='btnAddProducto'>
+			<i class="fa fa-plus-circle" aria-hidden="true"></i>
+		</button>
+
+		
+
+		</td>
+	    </tr> 
+		@endforeach
+
+  </tbody>
+</table>
+
+
+</div>
+				
+
+			</div>
+			
+		</div>
+	</div>
+</div>
 
 @endsection
 

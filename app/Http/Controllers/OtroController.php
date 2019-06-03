@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Producto;
 
 use Illuminate\Http\Request;
 
@@ -9,16 +10,15 @@ class OtroController extends Controller
    
 
 
-   public function items(Request $request)
+   public function Productos(Request $request,$id)
    {
 
-    $productos = array(
-                'idcompra'=>$request->idcompra,
-                'precio'=>$request->precio,
-                'cantidad'=>$request->cantidad,
-                'total'=>$request->total
-                );
+ $productos=Producto::all()->where('id_sede',session('idsede'));
 
-   	return $productos;
+
+       return view('Compras.index');
+	
+
+
    }
 }
