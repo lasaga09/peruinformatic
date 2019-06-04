@@ -306,7 +306,6 @@
 
 @section('contenido')
 	
-<h5>pantallas principal</h5>
 
 
 

@@ -19,11 +19,29 @@ class CompraController extends Controller
     public function index()
     {
        if(session('idusuario')){
-             $datos = Compra::select('compras.idcompras','compras.numerocompra','compras.fecha_compra','compras.total','proveedores.nombre as proveedor','sedes.nombre as sede','usuarios.nombre as usuario')
-             ->join('proveedores', 'proveedores.idproveedor', '=', 'compras.id_proveedor')
-             ->join('sedes', 'sedes.idsede', '=', 'compras.id_sede')
-             ->join('usuarios', 'usuarios.idusuario', '=', 'compras.id_usuario')
-             ->get();
+
+        /*condicion de listado de compra x sede y general*/
+            if(session('idsede') == 6){
+                 $datos = Compra::select('compras.idcompras','compras.numerocompra','compras.fecha_compra','compras.total','proveedores.nombre as proveedor','sedes.nombre as sede','usuarios.nombre as usuario')
+                 ->join('proveedores', 'proveedores.idproveedor', '=', 'compras.id_proveedor')
+                 ->join('sedes', 'sedes.idsede', '=', 'compras.id_sede')
+                 ->join('usuarios', 'usuarios.idusuario', '=', 'compras.id_usuario')
+                 ->get();
+
+
+            }else{
+                $datos = Compra::select('compras.idcompras','compras.numerocompra','compras.fecha_compra','compras.total','proveedores.nombre as proveedor','sedes.nombre as sede','usuarios.nombre as usuario')
+                 ->join('proveedores', 'proveedores.idproveedor', '=', 'compras.id_proveedor')
+                 ->join('sedes', 'sedes.idsede', '=', 'compras.id_sede')
+                 ->join('usuarios', 'usuarios.idusuario', '=', 'compras.id_usuario')
+                 ->where('compras.id_sede',session('idsede'))
+                 ->get();
+
+            }
+
+
+
+
 
              $proveedor = Proveedor::all();
 
@@ -44,8 +62,9 @@ class CompraController extends Controller
 
              
                 
-               /*lista de colores*/
+               /*lista de productos por sede*/
            $productos=Producto::select('productos.idproducto','productos.nombre as producto',
+                                   'productos.pantalla_generica','productos.pantalla_alternativo','productos.pantalla_original',
                                        'marcas.nombre as marca','productos.modelo','colores.nombre as color')
                              ->join('marcas','marcas.idmarcas','=','productos.id_marca')
                              ->join('colores','colores.idcolores','=','productos.id_color')
@@ -65,9 +84,15 @@ class CompraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
+         $datos = CompraDetalle::select('detalle_compra.cantidad','detalle_compra.id_compra','detalle_compra.generico','detalle_compra.alternativo','detalle_compra.original','detalle_compra.precio','detalle_compra.importe','productos.nombre as producto')
+                           ->join('productos','productos.idproducto','=','detalle_compra.id_producto')
+                           ->where('id_compra',$request->id)
+                           ->get();
+        return $datos;
+
     }
 
     /**
@@ -79,9 +104,18 @@ class CompraController extends Controller
     public function store(Request $request)
     {
        
-
+ 
        try {
         DB::beginTransaction();
+       /*insertamos compra*/
+
+        $compra = request()->validate([
+            'proveedor'=>'required'
+            
+        ],[
+        'proveedor.required'=>'campo obligatorio'  
+    
+        ]);
 
         $compra = new Compra();
         $compra->numerocompra=$request->numero;
@@ -92,7 +126,7 @@ class CompraController extends Controller
         $compra->save();
 
      
-       
+       /*guardamos en variables el detalle*/
         $idproducto=$request->idproducto;
         $cantidad=$request->cantidad;
         $generico=$request->generico;
@@ -100,8 +134,9 @@ class CompraController extends Controller
         $original=$request->original;
         $precio=$request->precio;
         $importe=$request->subtotal;
-        $cont=0;
+        $cont=0;/*contador para el bucle*/
 
+        /*condicion para el array de detalles que viene po request*/
         while($cont < count($idproducto)){
            $datos = new CompraDetalle();
            $datos->id_compra=$compra->idcompras;
@@ -123,7 +158,7 @@ class CompraController extends Controller
            DB::rollback();
        }
         
-        return 'ss';
+        return redirect()->route('Compra.index')->with('status', 'Compra Registrada');;
 
 
 
@@ -151,7 +186,7 @@ class CompraController extends Controller
      */
     public function edit(Compra $compra)
     {
-        //
+        
     }
 
     /**
@@ -172,8 +207,10 @@ class CompraController extends Controller
      * @param  \App\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Compra $compra)
+    public function destroy(Compra $compra,$id)
     {
-        //
+        $datos = Compra::find($id);
+        $datos->delete();
+        return 'Compra Eliminada';
     }
 }

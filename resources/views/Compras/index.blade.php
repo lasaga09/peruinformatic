@@ -16,17 +16,70 @@
 
 @section('style')
 	<link rel="stylesheet" type="text/css" href="css/compra.css">
+	<style type="text/css">
+		
+		.widthInput{
+			width: 50px;
+		}
+
+	</style>
 @endsection
 
 @section('contenido-header')
-<input type="text" name="ultimoid" id="ultimoid"  value="{{$ultimoid}}">
+<input type="text" name="ultimoid" id="ultimoid" hidden=""  value="{{$ultimoid}}">
+
+{{-- modal detalle de compra --}}
+<div class="modal fade" id="modalDetalles" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+
+			<div style="display: grid;justify-content:center;">
+				<div style="justify-self:center" class="lead"><h4>Detalles de compra</h4></div>
+					<table class="table table-hover table-responsive">
+					
+					<tr style="background: #1B377C;color: #fff">
+						<th>Producto</th>
+						<th>Generico</th>
+						<th>Alternativo</th>
+						<th>Original</th>
+						<th>Precio</th>
+						<th>Cantidad</th>
+						<th>Subtotal</th>
+					</tr>
+					<tbody id="dtosDetalle">
+						
+					</tbody>
+				</table>
+			</div>
+
+
+				
+			
+
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
 
 
 	
 <nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+  <div class="nav nav-tabs" id="nav-tab" role="tablist" >
     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Listado</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Nuevo</a>
+   @if (session('idsede')!=6)
+   	 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Nuevo</a>
+   @endif
     
   </div>
 </nav>
@@ -50,7 +103,9 @@
 		<th scope="col">Fecha</th>
 		<th scope="col">Total</th>
 		<th scope="col">Empleado</th>
-		<th scope="col">Sede</th>
+		@if (session('idsede')==6)
+			<th scope="col">Sede</th>
+		@endif
 		
 		<th scope="col">Acciones</th>
     </tr>
@@ -61,17 +116,21 @@
 		<td scope="row">{{$value->numerocompra}}</td>
 		<td>{{$value->proveedor}}</td>
 		<td>{{$value->fecha_compra}}</td>
-		<td>{{$value->total}}</td>
+		<td>S/. {{$value->total}}</td>
 		<td>{{$value->usuario}}</td>
-		<td>{{$value->sede}}</td>
+		@if (session('idsede')==6)
+			<td>{{$value->sede}}</td>
+		@endif
 
 		<td>
 		
 		<button data-toggle ="modal" class="btn btn-secondary"  data-target="#edit" id="btnEdit" idcate='{{$value->idcompras}}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 
-		<button id="btnDelete" class="btn btn-secondary" tokende="{{ csrf_token() }} "  idcateDel="{{$value->idcompras}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+		@if (session('idsede')!=6)
+			<button id="btnDelete" class="btn btn-secondary" tokende="{{ csrf_token() }} "  idcateDel="{{$value->idcompras}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+		@endif
 
-		<button id="btnDelete" class="btn btn-secondary" tokendeta="{{ csrf_token() }} "  iddeta="{{$value->idcompras}}"><i class="fa fa-eye" aria-hidden="true"></i></button>
+		<button id="btnDetalle" data-toggle ="modal"  data-target="#modalDetalles" class="btn btn-secondary" tokendeta="{{ csrf_token() }} "  iddeta="{{$value->idcompras}}"><i class="fa fa-eye" aria-hidden="true"></i></button>
 
 
 		</td>
@@ -83,6 +142,12 @@
 
 
 </div>
+
+
+
+
+
+
 
 
   </div>
@@ -104,7 +169,9 @@
 			
 				<br>
 				<div class="row" style="border:1px #CCCACA solid;padding:10px;-webkit-box-shadow: 0 0 8px 2px #1499FF;
-                  box-shadow: 0 0 8px 2px #1499FF;background:;">
+                  box-shadow: 0 0 8px 2px #1499FF;background:url('img/mesa.png');background-repeat: no-repeat, repeat;
+background-size: cover;
+background-position: center;">
 				
 				<div class="col-6 col-sm-2">
 
@@ -117,7 +184,7 @@
 					<div class  ="input-group mb-3">
 					<input type="text" hidden="" name="numero" id="numerocompra">
 					<input type="text" name="proveedor" id="proveedor" hidden="">{{-- idproveddor --}}
-					<input type ="text" class="form-control" placeholder="Proveedor" aria-label="proveedor" aria-describedby="basic-addon1" disabled="" id="verproveedor">
+					<input type ="text" class="form-control" placeholder="Proveedor" aria-label="proveedor" aria-describedby="basic-addon1" disabled="" id="verproveedor" required="">
 					<div class  ="input-group-prepend">
 					<span class ="input-group-text" id="basic-addon1">
 					 <i class="fa fa-search" aria-hidden="true" id="BuscarProve" data-toggle="modal" data-target="#modalProve" style="cursor: pointer;"></i>
@@ -140,7 +207,7 @@
 					<div class ="container" style="border:1px #CCCACA solid;padding:10px;width: 100%">
 					
 						<div class="row">
-                              	<input type="text"  id="idcompra"  name="idcompra"  value="{{$idLatest}}">
+                              	<input type="text"  id="idcompra"  name="idcompra" hidden=""  value="{{$idLatest}}">
 								<div class="col-6 col-sm-6">
 								<div class  ="input-group mb-3">
 								<input type="text" id="producto" hidden="" >{{-- idproducto --}}
@@ -222,9 +289,10 @@
 
 					<div class="container">
 
-						<table class="table">
-						<thead class="thead-dark">
-						<tr>
+						<table class="table table-hover table-responsive">
+						<thead style="border-radius: 10px">
+						<tr  style="background: #1B377C;color:#fff;">
+						<th scope="col" width="5%">Accion</th>
 						<th scope="col">Producto</th>
 						<th scope="col">generico</th>
 						<th scope="col">alternativo</th>
@@ -232,7 +300,7 @@
 						<th scope="col">precio</th>
 				    	<th scope="col">Cantidad</th>
 						<th scope="col">Subtotal</th>
-						<th scope="col">Acciones</th>
+						
 						</tr>
 						</thead>
 					
@@ -241,33 +309,36 @@
 
 				
 						</tbody>
-							<tfoot>
-					
-							<th>Total</th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th><h4 id="total">S/. 0.0</h4><input type="text" name="total_venta" id="total_venta" hidden=""></th>
-					</tfoot>
-
-					
+						
 						</table>
 
 					</div>
 
-     {{-- header compra --}}
-		<div class ="container" style="border:1px #CCCACA solid;padding:10px;width: 100%">
-
-				<button type ="submit" class="btn btn-success" id="btnAdd"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+     {{-- header compra --}}		
 				
-        </div>
+				
+				
+				
+				<div class ="container" style="border:1px #CCCACA solid;padding:10px;width: 100%">
+				
+				<div class="row">
+						<div class="col-12 col-sm-8">
+						<button type ="submit" class="btn btn-success" id="btnAdd"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
+						<a href="Compra" class="btn btn-danger">Cancelar</a>
+
+						</div>
+						<div class="col-12 col-sm-4 bg-warning text-center" >
+						<h4 style="margin-right: -50px;margin-top: 5px" id="total">Total : S/. 0.0</h4><input type="text" name="total_venta" id="total_venta" hidden="">
+						</div>
+				
+				
+				</div>
+				
+				</div>
+				
  
 	</form>
-			
-							
+					
 
      	</div>
 
@@ -367,7 +438,7 @@
 <table class="table table-hover pagi" id="tal">
  <thead class="" style="background: #1E3E8B;color: #fff">
     <tr>
-		<th scope="col">#</th>
+	
 		<th scope="col">Nombre</th>
 		<th scope="col">Modelo</th>
 		<th scope="col">Marca</th>
@@ -379,14 +450,14 @@
   <tbody id="tableb">  
 		@foreach ($productos as $value)
 		<tr>
-		<td>{{$value->idproducto}}</td>
+		
 		<td>{{$value->producto}}</td>
 		<td>{{$value->modelo}}</td>
 		<td>{{$value->marca}}</td>
 		<td>{{$value->color}}</td>
 		<td>
 		
-		<button class="btn btn-success"  idproducto='{{$value->idproducto}}' nombrepro='{{$value->producto}}' id='btnAddProducto'>
+		<button class="btn btn-success"  idproducto='{{$value->idproducto}}' nombrepro='{{$value->producto}}' id='btnAddProducto' pgenerica="{{$value->pantalla_generica}}" palternativo="{{$value->pantalla_alternativo}}" poriginal="{{$value->pantalla_original}}">
 			<i class="fa fa-plus-circle" aria-hidden="true"></i>
 		</button>
 
