@@ -284,7 +284,7 @@
   height:155px;
   background:;">
   
-    <div>Categorias <br>
+    <div>Reparacion <br>
      <input type="checkbox" name=""  id="ckcategoria">
     </div>
 

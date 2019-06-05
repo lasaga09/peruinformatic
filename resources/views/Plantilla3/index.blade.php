@@ -217,18 +217,18 @@
           @if (session('permisos')->pcategoria == 0)
             
               <li class="nav-item">
-                <a href="Categoria" style="pointer-events:none;
+                <a href="Reparacion" style="pointer-events:none;
                     cursor: pointer;" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Categorias</p>
+                  <p>Reparaciones</p>
                 </a>
               </li>
 
             @else
              <li class="nav-item">
-                <a href="Categoria" class="nav-link">
+                <a href="Reparacion" class="nav-link">
                   <i class="fa fa-circle-o nav-icon"></i>
-                  <p>Categorias</p>
+                  <p>Reparaciones</p>
                 </a>
               </li>
           @endif

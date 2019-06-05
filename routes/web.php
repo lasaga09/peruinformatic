@@ -26,6 +26,7 @@ Route::resource('Rol','RolController');
 Route::resource('Producto','ProductoController');
 Route::resource('Compra','CompraController');
 Route::resource('CompraDetalle','CompraDetalleController');
+Route::resource('Reparacion','ReparacionController');
 
 /*para actualizar con imagen*/
 Route::post('ProductoUp/{id}','ImagenController@up')->name('Producto.up');
@@ -36,6 +37,8 @@ Route::post('ProductoUp/{id}','ImagenController@up')->name('Producto.up');
 
 /*para uso opcionales*/
 Route::get('Items','OtroController@items')->name('Items.items');
+Route::get('Tecnico/{id}','OtroController@Telefono')->name('Tecnico.telefono');
+Route::get('Marca/{id}','OtroController@Marca')->name('Tecnico.marca');
 
 
 Route::put('Permiso/{id}','PermisoController@update')->name('Permiso.update');
