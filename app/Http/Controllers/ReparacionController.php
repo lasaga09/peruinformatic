@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Cliente;
 use App\Reparacion;
+use App\DetalleReparacion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -36,8 +37,11 @@ class ReparacionController extends Controller
         $clientes=Cliente::all();
         $marcas = DB::table('marcas')->get();
 
+              $totalRegistros=Reparacion::all()->where('id_sede',session('idsede'))->count();
+              $totalre=$totalRegistros + 1;
+
      
-     return view('Reparacion.index',compact('datos','clientes','marcas')); 
+     return view('Reparacion.index',compact('datos','clientes','marcas','totalre')); 
      }      
      return redirect()->route('Login.index');
     }
@@ -60,7 +64,70 @@ class ReparacionController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        
+ 
+       try {
+        DB::beginTransaction();
+       /*insertamos compra*/
+
+        $compra = request()->validate([
+            'cliente'=>'required',
+            'celular'=>'required'
+        ],[
+        'cliente.required'=>'campo obligatorio'  
+    
+        ]);
+
+            $reparacion = new Reparacion();
+            $reparacion->numero=$request->numero;
+            $reparacion->id_cliente=$request->cliente;
+            $reparacion->celular=$request->celular;
+            $reparacion->id_sede=$request->sede;
+            $reparacion->id_usuario=$request->usuario;
+            $reparacion->cuenta=$request->cuenta;
+            $reparacion->saldo=$request->saldo;
+            $reparacion->total=$request->total;
+             $reparacion->save();
+
+       
+
+     
+       /*guardamos en variables el detalle*/
+        $equipo=$request->equipo;
+        $marca=$request->marca;
+        $descripcion=$request->descripcion;
+        $falla=$request->fallas;
+        $cantidad=$request->cantidad;
+        $precio=$request->precio;
+        $subtotal=$request->subtotal;
+        $cont=0;/*contador para el bucle*/
+
+        /*condicion para el array de detalles que viene po request*/
+        while($cont < count($marca)){
+           $datos = new DetalleReparacion();
+           $datos->id_reparacion=$reparacion->idreparacion;
+           $datos->equipo=$equipo[$cont];
+           $datos->id_marca=$marca[$cont];
+           $datos->observacion=$descripcion[$cont];
+           $datos->falla=$falla[$cont];
+           $datos->cantidad=$cantidad[$cont];;
+           $datos->subtotal=$subtotal[$cont];
+           $datos->precio=$precio[$cont];
+           $datos->save();
+           $cont=$cont+1;
+
+        }
+        DB::commit();
+
+           
+       } catch (Exception $e) {
+           DB::rollback();
+       }
+        
+        return redirect()->route('Reparacion.index')->with('status', 'Reparacion Registrada');;
+
+
+
     }
 
     /**
@@ -69,9 +136,11 @@ class ReparacionController extends Controller
      * @param  \App\Reparacion  $reparacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Reparacion $reparacion)
+    public function show(Reparacion $reparacion,$id)
     {
-        //
+        $datos = $reparacion::find($id);
+
+        return $datos;
     }
 
     /**
@@ -94,7 +163,23 @@ class ReparacionController extends Controller
      */
     public function update(Request $request, Reparacion $reparacion,$id)
     {
+        $fecha  = date('Y-m-d H:i:s');
+        $estado = 1;
+        $cuenta = 0.0;
+        $saldo  =0.0;
+
+
+
+              $datos =$reparacion::find($id);
+              $datos->fecha_finalizada =$fecha;
+              $datos->estado =$estado;
+              $datos->cuenta =$cuenta;
+              $datos->saldo =$saldo;
+              $datos->save();
+
+
         
+        return 'Reparacion finalizada';
     }
 
     /**
@@ -103,8 +188,11 @@ class ReparacionController extends Controller
      * @param  \App\Reparacion  $reparacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reparacion $reparacion)
+    public function destroy(Reparacion $reparacion,$id)
     {
-        //
+
+        $datos = $reparacion::find($id);
+        $datos->delete();
+        return 'Reparacion eliminada';
     }
 }

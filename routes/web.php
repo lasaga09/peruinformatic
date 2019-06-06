@@ -27,6 +27,7 @@ Route::resource('Producto','ProductoController');
 Route::resource('Compra','CompraController');
 Route::resource('CompraDetalle','CompraDetalleController');
 Route::resource('Reparacion','ReparacionController');
+Route::resource('DetalleReparacion','DetalleReparacionController');
 
 /*para actualizar con imagen*/
 Route::post('ProductoUp/{id}','ImagenController@up')->name('Producto.up');

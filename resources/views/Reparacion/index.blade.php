@@ -17,12 +17,18 @@
 
 
 @section('contenido-header')
+
+
+
+<input type="text" name="" id="numerohoja" value="{{$totalre}}" hidden="">
 	
 
 	<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-  Nuevo
-</button>
+@if (session('idsede')!=6)
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+	Nuevo
+	</button>
+@endif
 <br>
 
 
@@ -43,22 +49,23 @@
 					<input type="text" name="" id="token" hidden="" value="{{ csrf_token() }}">
 
 			
-					<input type="text" name="usuario" value="{{session('idusuario')}}">
-					<input type="text" name="sede" id="sede" value="{{session('idsede')}}">
+					<input type="text" name="usuario" value="{{session('idusuario')}}" hidden="">
+					<input type="text" name="sede" id="sede" value="{{session('idsede')}}" hidden="">
 					
 
 					<div class="row">
-							<div class="col-6 lead">
+							<div class="col-8 lead col-sm-8">
 							<h4 class="lead">Hoja de servicio tecnico
 							</h4>
 							
 							</div>
-							<div class="col-6">
-							<span>Nro:</span>
+							<div class="col-4 lead col-sm-4">
+							<span id="vernumero" style="background: #E7F0AD;color: #D32828;padding: 10px">Nro:</span>
+							<input type="text" name="numero" id="numero" hidden="">
 							</div>
 						
 					</div>
-					<div class="row" style="border:1px #222 solid;padding: 10px">{{-- div reparacion --}}
+					<div class="row mt-2" style="border:1px #222 solid;padding:0px 10px 0px 10px">{{-- div reparacion --}}
 						
 							
 							<div class="col-8">
@@ -76,7 +83,7 @@
 							</div>
 							
 
-							<div class="col-4">
+							<div class="col-4 mb-3">
 								<span>Celular</span>
 								<input type="text" name="celular" id="celular" class="form-control" readonly="">
 							</div>
@@ -113,7 +120,7 @@
 						</select>
 						
 						</div>
-						<input type="text" name="" id="vermarca" hidden="">
+						<input type="text" name="" id="vermarca" hidden="{{--  --}}" >
 						</div>
 
 
@@ -155,6 +162,7 @@
 
 							<div class="col-12"><div><input type="checkbox" name="uno" value="Cambio de Zocalo,audio,altavoz,parlante,bateria" >Cambio de Zocalo,audio,altavoz,parlante,bateria</div></div>
 							<div class="col-6"><div><input type="checkbox" name="uno" value="Otro" id="Otro">Otro</div></div>
+
 							<div class="col-12" style="display: none;" id="divotro"><div><input type="text" id="otrafallainput"  class="form-control" placeholder="otra falla"></div></div>
 							
 						
@@ -174,6 +182,7 @@
 						<th scope="col" width="5%">Accion</th>
 						<th scope="col">Equipo</th>
 						<th scope="col">descripcion</th>
+
 						<th scope="col">Falla</th>
 						<th scope="col">Cantidad</th>
 				    	<th scope="col">Precio</th>
@@ -209,7 +218,11 @@
 			
 				<div class="row">
 					<div class="col-4"><input type="text" name="cuenta" id="cuenta" class="form-control" placeholder="a cuenta"></div>
-					<div class="col-4"><input type="text" name="saldo" disabled="" placeholder="saldo" id="saldo" class="form-control"></div>
+
+					<div class="col-4"><input type="text"  disabled placeholder="saldo" id="saldo" class="form-control"></div>
+					<input type="text" name="saldo" id="saldoen" hidden="">
+
+
 					<div class="col-4 text-center "><span id="total" class="form-control bg-warnnig">Total a pagar: S/. 0.0 </span></div>
 					<input type="text" name="total" id="total_total" class="form-control" hidden="">
 				</div>
@@ -260,7 +273,7 @@
 	<td>{{$value->cliente}}</td>
 	<td>{{$value->celular}}</td>
 	<td>{{$value->fecha_recepcion}}</td>
-	<td>{{$value->fecha_finalizado}}</td>
+	<td>{{$value->fecha_finalizada}}</td>
 	@if ($value->estado == 0)
 		<td ><i style="background: #FFD646;padding: 5px;border-radius: 5px">en curso</i></td>
 		@else
@@ -274,14 +287,100 @@
 	@endif
 	<td>
        
-       <button data-toggle ="modal" class="btn btn-warning"  data-target="#edit" id="btnEdit" idcate='{{$value->idreparacion}}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-       <button id          ="btnDelete" class="btn btn-danger" tokende="{{ csrf_token() }} "  idcateDel="{{$value->idreparacion}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+       @if (session('idsede')!=6)
+       @if ($value->estado == 0)
+       	<button class="btn btn-warning" tokenupd="{{ csrf_token() }} " id="btnEditRepa" idcate='{{$value->idreparacion}}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+       @endif
+       @endif
+
+
+       @if (session('idsede')!=6)
+       	<button id="btnDelete" class="btn btn-danger" tokende="{{ csrf_token() }} " idcateDel="{{$value->idreparacion}}"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+  
+       @endif
+
+     <button data-toggle ="modal" class="btn btn-info"  data-target="#xx" id="btnDetalles" idDeta='{{$value->idreparacion}}'><i class="fa fa-eye" aria-hidden="true"></i></button>
+       
     </td>
-      </td>
+     
     </tr> 
      @endforeach 
   </tbody>
 </table>
+
+
+
+
+
+<div class="modal fade" id="xx" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       
+        <button type="button" class="close" id="cerraradd" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+
+
+       
+            <div class="modal-body">
+            	
+
+						<div class="row" >
+						<div class="col-12"><span>Detalles de reparacion</span></div>
+						<div class="col-12">
+						<table class="table table-hover">
+						<thead>
+						<tr  style="background: #1B377C;color:#fff;">
+					
+						<th scope="col">Equipo</th>
+						<th scope="col">descripcion</th>
+						
+						<th scope="col">Falla</th>
+						<th scope="col">Cantidad</th>
+						<th scope="col">Precio</th>
+						<th scope="col">Subtotal</th>
+						
+						</tr>
+						</thead>
+						
+						<tbody id="detallesd">
+						
+						
+						
+						
+						</tbody>
+						
+						</table>
+						</div>
+						
+						
+						</div>
+
+						<div class="row mt-3 ">
+						<div class="col-4" ><span id="detaCuenta" class="form-control bg-secondary"></span></div>
+						<div class="col-4"><span id="detaSaldo" class="form-control bg-secondary"></span></div>
+						<div class="col-4"><span id="detaTotal" class="form-control bg-secondary"></span></div>
+						</div>
+             
+           
+            
+            </div>
+     
+     
+
+    
+
+    </div>
+  </div>
+</div>
+
+
+
+
 
 @endsection
 
