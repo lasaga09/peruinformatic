@@ -146,7 +146,7 @@ class CompraController extends Controller
            $datos->alternativo=$alternativo[$cont];
            $datos->original=$original[$cont];;
            $datos->precio=$precio[$cont];
-           $datos->importe=$importe[$cont];
+           $datos->subtotal=$importe[$cont];
            $datos->save();
            $cont=$cont+1;
 
