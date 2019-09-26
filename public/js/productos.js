@@ -40,6 +40,8 @@ var categoria=document.getElementById("categoria");
 var imagen=document.getElementById("imagen");
 var sede=document.getElementById("idsede");
 
+
+
 btnAdd.addEventListener("click",function(e){
  var formData = new FormData($('#formAd')[0]);
 	

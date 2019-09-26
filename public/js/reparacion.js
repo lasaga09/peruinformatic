@@ -74,6 +74,7 @@ var descripcion =document.getElementById("descripcion").value;
 var modelo =document.getElementById("modelo").value;
 var cantidad =document.getElementById("cantidad").value;
 var precio =document.getElementById("precio").value;
+
 var siSeleccionado=new Array();
 	var noSeleccionado=new Array();
 	var checkboxs = document.querySelectorAll('input[name="uno"]').forEach( function(e) {
